@@ -1,0 +1,25 @@
+.Nav { height: 100%;  }
+
+.Ul {
+    position: relative;
+    height: 100%;
+}
+
+.Span {
+    width: 22px;
+    height: 3px;
+    background-color: #FFCC66;
+}
+
+
+@media(min-width: 768px) {
+    .Ul { display: flex; }
+    .Filters { display: flex; }
+    .Ul > div:last-child p {
+        width: 0;
+        opacity: 0;
+        margin-right: 23px; 
+        transition: all .3s;
+    }
+    .Ul > div:last-child:hover p { width: 62px; opacity: 1; }
+}

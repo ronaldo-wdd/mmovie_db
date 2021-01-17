@@ -1,0 +1,32 @@
+.Item {
+    padding: 0 23px; 
+    text-transform: uppercase;
+    text-align: right;
+    font-weight: bold;
+    background-color: #000; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Item > div {
+    margin-left: 23px;
+}
+
+.Item img {
+    height: 22px;
+    width: auto;
+    margin-left: 23px;
+}
+
+
+@media(min-width: 768px) {
+    .Item { background: none; }
+    .Item.Active { background-color: #1D1D1B; }
+    .Item:hover { background-color: #000; }
+    .Item img { margin: 0; }
+    .Item > div { display: none; }
+
+    
+}

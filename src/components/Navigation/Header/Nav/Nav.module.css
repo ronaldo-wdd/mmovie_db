@@ -15,14 +15,12 @@
 
 /* nav mobile hidden */
 @media(max-width: 768px) {
-    .Nav .Filters > div { height: 40px; }
+    .Filters { transition: all .3s; }
+    .Nav .Filters > div { height: 40px; transition: all .3s; }
 
-    .Nav.Hidden .Ul { background: #000; }
+    .Nav .Ul { background: #000; }
     .Nav.Hidden .Filters { transform: translateY(12px); }
-    .Nav.Hidden .Filters > div {
-        height: 5px;
-        transition: all .3s;
-    }
+    .Nav.Hidden .Filters > div { height: 5px; }
     .Nav.Hidden .Ul > div:last-child { height: 0; opacity: 0; }
     .Nav.Hidden .Filters > div:first-child p { transform: translateY(5px); }
     .Nav.Hidden .Filters > div:last-child p { transform: translateY(-5px); }

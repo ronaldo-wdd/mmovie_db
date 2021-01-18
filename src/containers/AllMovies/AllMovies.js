@@ -8,4 +8,4 @@ class AllMovies extends Component {
     }
 }
 
-export default AllMovies();
+export default AllMovies;

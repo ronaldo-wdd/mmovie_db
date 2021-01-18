@@ -27,6 +27,10 @@
     .Item:hover { background-color: #000; }
     .Item img { margin: 0; }
     .Item > div { display: none; }
+}
 
-    
+@media(max-width: 768px) {
+    .Item p { opacity: 0; }
+    .Item.Active p { opacity: 1; }
+    .Item.ShowAll p { opacity: 1; }
 }

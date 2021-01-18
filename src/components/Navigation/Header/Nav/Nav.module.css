@@ -2,13 +2,30 @@
 
 .Ul {
     position: relative;
-    height: 100%;
+    height: 40px;
 }
+.Ul p { transition: all .3s; }
 
 .Span {
     width: 22px;
-    height: 3px;
+    height: 2px;
     background-color: #FFCC66;
+}
+
+
+/* nav mobile hidden */
+@media(max-width: 768px) {
+    .Nav .Filters > div { height: 40px; }
+
+    .Nav.Hidden .Ul { background: #000; }
+    .Nav.Hidden .Filters { transform: translateY(12px); }
+    .Nav.Hidden .Filters > div {
+        height: 5px;
+        transition: all .3s;
+    }
+    .Nav.Hidden .Ul > div:last-child { height: 0; opacity: 0; }
+    .Nav.Hidden .Filters > div:first-child p { transform: translateY(5px); }
+    .Nav.Hidden .Filters > div:last-child p { transform: translateY(-5px); }
 }
 
 
@@ -19,7 +36,6 @@
         width: 0;
         opacity: 0;
         margin-right: 23px; 
-        transition: all .3s;
     }
     .Ul > div:last-child:hover p { width: 62px; opacity: 1; }
 }

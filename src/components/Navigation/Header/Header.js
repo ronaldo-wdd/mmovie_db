@@ -25,7 +25,7 @@ class Header extends Component {
     render () {
         return (
             <header className={classes.Header}>
-                <Container className={classes.Container}>
+                <Container fluid='xxl' className={classes.Container}>
                     <Logo />
                     <Nav 
                         activeFilter={this.state.activeFilter}

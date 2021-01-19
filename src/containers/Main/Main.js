@@ -20,7 +20,7 @@ class Main extends Component {
         return (
             <div className={classes.Main}>
                 <MainMovie />
-                <Container className={classes.MoviesList}>
+                <Container fluid="xxl" className={classes.MoviesList}>
                     <MoviesList />
                 </Container>
             </div>

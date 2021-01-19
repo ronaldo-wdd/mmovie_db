@@ -1,9 +1,15 @@
 import React from 'react';
+import classes from "./Media.module.css";
+
+import Backdrop from './Backdrop/Backdrop';
+
 
 const Media = () => {
     return (
-        <div></div>
+        <div className={classes.Media}>
+            <Backdrop />
+        </div>
     );
 }
 
-export default Media();
+export default Media;

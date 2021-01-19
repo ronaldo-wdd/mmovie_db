@@ -3,7 +3,8 @@ import { Route } from 'react-router-dom';
 
 import Layout from './hoc/Layout/Layout';
 import Header from './components/Navigation/Header/Header';
-import AllMovies from './containers/AllMovies/AllMovies';
+import Main from './containers/Main/Main';
+// import AllMovies from './containers/AllMovies/AllMovies';
 
 
 class App extends Component {
@@ -29,7 +30,7 @@ class App extends Component {
     return (
       <Layout>
         <Header isMobile={this.state.isMobile} />
-        <Route path="/" component={AllMovies} />
+        <Route path="/" component={Main} />
       </Layout>
     );
   }

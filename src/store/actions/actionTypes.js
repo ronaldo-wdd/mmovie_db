@@ -1,2 +1,3 @@
 export const FETCH_MOVIES = 'FETCH_MOVIES';
 export const FETCH_MOVIES_FAILED = 'FETCH_MOVIES_FAILED';
+export const ACTIVE_MOVIE = 'ACTIVE_MOVIE';

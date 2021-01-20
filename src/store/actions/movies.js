@@ -12,3 +12,10 @@ export const fetch_movies_failed = () => {
         type: actionTypes.FETCH_MOVIES_FAILED
     }
 }
+
+export const activeMovie = index => {
+    return {
+        type: actionTypes.ACTIVE_MOVIE,
+        index: index
+    }
+}

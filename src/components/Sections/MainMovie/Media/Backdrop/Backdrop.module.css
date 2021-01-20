@@ -1,32 +1,77 @@
 .Carousel {
+    /* position: relative; */
     width: 100%;
     height: 100%;
 }
 
-.Backdrop {
+.Carousel > div {
     position: absolute;
     top: 0;
-    right: 0;
     width: 100%;
     height: 100%;
+    transition: all .7s;
+    padding: 0;
+    overflow: hidden;
 }
+
+.Carousel > div img {
+    width: 84vw;
+    height: 70;
+    object-fit: cover;
+    opacity: 0;
+}
+
+.Backdrop, .PrevBackdrop {
+    left: 16.7%;
+    transform: skew(0deg) translateX(0);
+    opacity: 1;
+}
+
+.Backdrop img, .PrevBackdrop img { opacity: 1!important; }
+
+.PrevBackdrop { opacity: 0; }
 
 .NextBackdrop {
-    position: absolute;
-    top: 0;
     left: 0;
-    background-color: #1d1d1b80;
-    width: 100%;
-    height: 100%;
+    opacity: 0.8;
     transform: skewX(11deg) translateX(-15%);
+    background: linear-gradient(to bottom, #1d1d1b, #1d1d1b00 80%);
 }
 
 .FakeBackdrop {
-    position: absolute;
-    top: 0;
     left: 0;
-    background: linear-gradient(to top, #1d1d1b 15%, #1d1d1bd1);
-    width: 100%;
-    height: 100%;
+    background: linear-gradient(to top, #1d1d1b 35%, #1d1d1bd1);
     transform: skewX(8deg) translateX(-22%);
+}
+
+
+@media(max-width: 768px) {
+    .Backdrop, .PrevBackdrop { left: 0 }
+
+    .NextBackdrop {
+        transform: skewY(-7deg) translateY(74%);
+        background: linear-gradient(346deg, #1d1d1b 53%, #1d1d1b40);
+        /* opacity: 1; */
+    }
+    
+    .FakeBackdrop { 
+        transform: skewY(-5deg) translateY(96%);
+        opacity: 1;
+        background: none;
+    }
+    .FakeBackdrop::before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: 0;
+        width: 100%;
+        height: 78px;
+        background: linear-gradient(to bottom, #1d1d1b00 7%, #1d1d1b);
+    }
+
+    .Carousel > div img {
+        width: 100%;
+        height: 62vh;
+    }
+
 }

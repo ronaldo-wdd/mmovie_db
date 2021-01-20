@@ -7,3 +7,8 @@
 .MoviesList {
     transform: translateY(-12px);
 }
+
+
+@media(max-width: 768px) {
+    .Main { height: 62vh; }
+}

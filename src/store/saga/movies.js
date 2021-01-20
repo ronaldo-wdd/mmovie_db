@@ -6,8 +6,10 @@ import * as selectors from "./selectors";
 
 
 export function* fetchMoviesSaga() {
+    let moviesFilter = yield select(selectors.activeFilter);
+
     try {
-        const response = yield axios.get("/discover/movie");
+        const response = yield axios.get(`/movie/${moviesFilter}`);
         const fetchedMovies = response.data;
 
         yield put(actions.fetch_movies_success(fetchedMovies));

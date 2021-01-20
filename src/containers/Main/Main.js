@@ -12,7 +12,6 @@ import MoviesList from '../../components/Sections/MoviesList/MoviesList';
 
 class Main extends Component {
     componentDidMount () {
-        console.log("componentDidMount");
         this.props.onFetchMovies();
     }
 
@@ -21,7 +20,7 @@ class Main extends Component {
             <div className={classes.Main}>
                 <MainMovie />
                 <Container fluid="xxl" className={classes.MoviesList}>
-                    <MoviesList />
+                    {/* <MoviesList /> */}
                 </Container>
             </div>
         );

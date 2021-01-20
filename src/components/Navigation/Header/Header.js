@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classes from './Header.module.css';
 import Container from 'react-bootstrap/Container';
+import * as actions from '../../../store/actions';
+import { connect } from 'react-redux';
 
 import Logo from './Logo/Logo';
 import Nav from './Nav/Nav';
@@ -8,12 +10,11 @@ import Nav from './Nav/Nav';
 class Header extends Component {
     state = {
         showMobileNav: false,
-        activeFilter: 1
     }
 
     handleNavLinksClick = (filter) => {
         (!this.props.isMobile || this.state.showMobileNav)
-            && this.setState({activeFilter: filter});
+            && this.props.onSetFilter(filter);
     }
 
     handleNavClick = () => { 
@@ -27,7 +28,7 @@ class Header extends Component {
                 <Container fluid='xxl' className={classes.Container}>
                     <Logo />
                     <Nav 
-                        activeFilter={this.state.activeFilter}
+                        activeFilter={this.props.activeFilter}
                         showMobileNav={this.state.showMobileNav}
                         handleNavLinksClick = {filter => this.handleNavLinksClick(filter)}
                         clicked = {() => this.handleNavClick()} />
@@ -37,4 +38,17 @@ class Header extends Component {
     }
 }
 
-export default Header;
+
+const mapStateToProps = state => {
+    return {
+        activeFilter: state.activeFilter
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetFilter: filter => dispatch(actions.set_active_filter(filter))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -14,22 +14,22 @@ const Nav = (props) => {
                 <div className={classes.Filters}>
                     <Item 
                         link="/"
-                        active={props.activeFilter == 1}
-                        clicked = {() => props.handleNavLinksClick(1)}
+                        active={props.activeFilter === 'popular'}
+                        clicked = {() => props.handleNavLinksClick('popular')}
                         showMobileNav={props.showMobileNav} >
-                        <p>Cinema</p>
+                        <p>Popular</p>
                         <div className={classes.Span} /></Item>
                     <Item 
                         link="/"
-                        active={props.activeFilter == 2}
-                        clicked = {() => props.handleNavLinksClick(2)}
+                        active={props.activeFilter === 'now_playing'}
+                        clicked = {() => props.handleNavLinksClick('now_playing')}
                         showMobileNav={props.showMobileNav} >
-                        <p>Streaming</p>
+                        <p>In theatres</p>
                         <div className={classes.Span} /></Item>
                     <Item 
                         link="/"
-                        active={props.activeFilter == 3} 
-                        clicked = {() => props.handleNavLinksClick(3)}
+                        active={props.activeFilter === 'upcoming'} 
+                        clicked = {() => props.handleNavLinksClick('upcoming')}
                         showMobileNav={props.showMobileNav} >
                         <p>Up Coming</p>
                         <div className={classes.Span} /></Item>

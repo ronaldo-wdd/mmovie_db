@@ -33,3 +33,10 @@ export const set_active_movie = index => {
         index: index
     }
 }
+
+export const set_active_filter = filter => {
+    return {
+        type: actionTypes.SET_ACTIVE_FILTER,
+        filter: filter
+    }
+}

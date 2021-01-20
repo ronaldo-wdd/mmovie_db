@@ -7,4 +7,5 @@ import * as actionTypes from '../actions/actionTypes';
 export function* watchMovies () {
     yield takeLeading(actionTypes.FETCH_MOVIES, fetchMoviesSaga);
     yield takeLeading(actionTypes.ACTIVE_MOVIE, setActiveMovieSaga);
+    yield takeLeading(actionTypes.SET_ACTIVE_FILTER, fetchMoviesSaga);
 }

@@ -14,7 +14,6 @@ class Header extends Component {
     handleNavLinksClick = (filter) => {
         (!this.props.isMobile || this.state.showMobileNav)
             && this.setState({activeFilter: filter});
-        console.log(filter);
     }
 
     handleNavClick = () => { 

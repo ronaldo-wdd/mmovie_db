@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Item.module.css';
-// import {NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 const Item = (props) => {
     const itemClasses = [classes.Item]
@@ -8,11 +8,14 @@ const Item = (props) => {
     props.showMobileNav && itemClasses.push(classes.ShowAll);
     
     return (
-        <div 
+        <NavLink 
+            to={props.link}
+            exact={true}
+            component="div"
             className={itemClasses.join(' ')}
             onClick = {props.clicked} >
             {props.children}
-        </div>
+        </NavLink>
     );
 }
 

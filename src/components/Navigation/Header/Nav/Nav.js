@@ -13,18 +13,21 @@ const Nav = (props) => {
             <div className={classes.Ul} onClick={()=> props.clicked()}>
                 <div className={classes.Filters}>
                     <Item 
+                        link="/"
                         active={props.activeFilter == 1}
                         clicked = {() => props.handleNavLinksClick(1)}
                         showMobileNav={props.showMobileNav} >
                         <p>Cinema</p>
                         <div className={classes.Span} /></Item>
                     <Item 
+                        link="/"
                         active={props.activeFilter == 2}
                         clicked = {() => props.handleNavLinksClick(2)}
                         showMobileNav={props.showMobileNav} >
                         <p>Streaming</p>
                         <div className={classes.Span} /></Item>
                     <Item 
+                        link="/"
                         active={props.activeFilter == 3} 
                         clicked = {() => props.handleNavLinksClick(3)}
                         showMobileNav={props.showMobileNav} >
@@ -32,6 +35,7 @@ const Nav = (props) => {
                         <div className={classes.Span} /></Item>
                 </div>
                 <Item 
+                    link="/search"
                     showMobileNav={props.showMobileNav}>
                     <p>Search</p>
                     <img src={srcIcon} /></Item>

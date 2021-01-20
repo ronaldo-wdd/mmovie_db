@@ -7,6 +7,7 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 import './Backdrop.css';
 import classes from './Backdrop.module.css';
 import * as actions from '../../../../../store/actions';
+import defaultBackdropPath from '../../../../../assents/images/defaultBackdrop.jpg';
 
 
 class Backdrop extends Component {
@@ -52,7 +53,9 @@ class Backdrop extends Component {
                     classNames="slide" >
                     <Col md={backdropsConfig[key].md}
                         className={backdropsConfig[key].class} >
-                        <img src={`https://image.tmdb.org/t/p/original${el.backdrop_path}`} />
+                        <img 
+                            src={`https://image.tmdb.org/t/p/original${el.backdrop_path}`}
+                            onError={ e => e.target.src=defaultBackdropPath } />
                     </Col>
                 </CSSTransition>
             )

@@ -5,4 +5,9 @@ export {
     active_movie,
     set_active_movie,
     set_active_filter
-} from './movies'
+} from './movies';
+
+export {
+    is_loading,
+    change_mobile
+} from './navigation';

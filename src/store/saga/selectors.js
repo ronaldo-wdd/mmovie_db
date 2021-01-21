@@ -1,3 +1,3 @@
-export const activeMovie = state => state.activeMovie;
-export const moviesResults = state => state.movies.length;
-export const activeFilter = state => state.activeFilter;
+export const activeMovie = state => state.movies.activeMovie;
+export const moviesResults = state => state.movies.movies.length;
+export const activeFilter = state => state.movies.activeFilter;

@@ -1,0 +1,42 @@
+.Button {
+    width: fit-content;
+    padding: 10px 35px;
+    background-color: #FFCC66;
+    color: #1D1D1B;
+    cursor: pointer;
+}
+
+.Button p {
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.NextBtn, .BackBtn, .ShowAllBtn {
+    color: #FFCC66;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.NextBtn p, .BackBtn p, .ShowAllBtn p { margin: 0; }
+.NextBtn::after,.BackBtn::after, .ShowAllBtn::after {
+    content: "";
+    background: #FFCC66;
+    max-width: 150%;
+    max-height: 150%;
+    transition: all .3s;
+    z-index: 9;
+}
+.NextBtn::after {
+    position: absolute;
+    left: 0;
+    width: 150%;
+    height: 3px;
+}
+.NextBtn:hover::after,.BackBtn:hover::after, .ShowAllBtn:hover::after {
+    max-width: 100%;
+    max-height: 100%;
+}

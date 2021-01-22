@@ -41,7 +41,7 @@ const Info = props => {
                 <Button>See more</Button>
             </Col>
             <Col md="7" className={classes.PlayTrailer}>
-                <img src={playBtn} />
+                <img src={playBtn} alt="" />
             </Col>
             <Container fluid="xxl" className={classes.NextBtn}>
                 <Button type="next"

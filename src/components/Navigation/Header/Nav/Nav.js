@@ -38,7 +38,7 @@ const Nav = (props) => {
                     link="/search"
                     showMobileNav={props.showMobileNav}>
                     <p>Search</p>
-                    <img src={srcIcon} /></Item>
+                    <img src={srcIcon} alt="" /></Item>
             </div>
         </nav>
     );

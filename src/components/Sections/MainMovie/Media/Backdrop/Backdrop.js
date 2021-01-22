@@ -54,7 +54,7 @@ class Backdrop extends Component {
                         <Col md={backdropsConfig[i].md}
                             className={backdropsConfig[i].class} >
                             {movies[i] && (
-                                <img 
+                                <img alt={movies[i].title}
                                 src={`https://image.tmdb.org/t/p/original${movies[i].backdrop_path}`}
                                 onError={ e => e.target.src=defaultBackdropPath } />
                             )}

@@ -6,7 +6,6 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import './Backdrop.css';
 import classes from './Backdrop.module.css';
-import * as actions from '../../../../../store/actions';
 import defaultBackdropPath from '../../../../../assents/images/defaultBackdrop.jpg';
 
 
@@ -68,7 +67,7 @@ class Backdrop extends Component {
         return (
             !this.state.loading &&
 
-            <div className={classes.Carousel} onClick={()=>this.props.onSetActiveMovie(this.props.activeMovie + 1)} >
+            <div className={classes.Carousel} >
                 <TransitionGroup component={null}>
                     {displayedMovies}
                 </TransitionGroup>
@@ -80,15 +79,9 @@ class Backdrop extends Component {
 
 const mapStateToProps = state => {
     return {
-        activeMovie: state.activeMovie,
-        movies: state.movies
+        activeMovie: state.movies.activeMovie,
+        movies: state.movies.movies
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onSetActiveMovie: index => dispatch(actions.active_movie(index))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Backdrop);
+export default connect(mapStateToProps)(Backdrop);

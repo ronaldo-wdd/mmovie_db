@@ -15,7 +15,7 @@
 
 .Carousel > div img {
     width: 84vw;
-    height: 70;
+    /* height: 70vh; */
     object-fit: cover;
     opacity: 0;
     transition: transform .7s;
@@ -44,6 +44,10 @@
     transform: skewX(8deg) translateX(-22%);
 }
 
+
+@media(max-width: 1200px) {
+    .Carousel > div img { height: 70vh; }    
+}
 
 @media(max-width: 768px) {
     .Backdrop, .PrevBackdrop { left: 0 }

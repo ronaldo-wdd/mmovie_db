@@ -1,26 +1,23 @@
 import React, {Component} from 'react';
 import classes from './Main.module.css';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions';
 
 import MainMovie from '../../components/Sections/MainMovie/MainMovie';
 import MoviesList from '../../components/Sections/MoviesList/MoviesList';
+import Info from '../../components/Sections/MainMovie/Info/Info';
 
 
 class Main extends Component {
-    componentDidMount () {
-        this.props.onFetchMovies();
-    }
-
     render() {
         return (
             <div className={classes.Main}>
                 <MainMovie />
+                { (this.props.isMobile && !this.props.loading) 
+                    && (<Info mobile={true} />) }
                 <Container fluid="xxl" className={classes.MoviesList}>
-                    {/* <MoviesList /> */}
+                    <MoviesList />
                 </Container>
             </div>
         );
@@ -28,10 +25,11 @@ class Main extends Component {
 }
 
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
     return {
-        onFetchMovies: () => dispatch(actions.fetch_movies())
+        isMobile: state.navigation.mobile,
+        loading: state.navigation.loading
     }
 }
 
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);

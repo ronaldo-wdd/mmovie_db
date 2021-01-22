@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     fetchedMovies: null,
     movies: [],
+    genresList: null,
     error: false,
     activeMovie: 0,
     activeFilter: 'popular'
@@ -23,6 +24,13 @@ const fetch_movies_failed = (state) => {
     return {
         ...state,
         error: true
+    }
+}
+
+const fetch_movies_genre_success = (state, genresList) => {
+    return {
+        ...state,
+        genresList: genresList
     }
 }
 
@@ -55,6 +63,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_MOVIES_FAILED: return fetch_movies_failed(state);
         case actionTypes.SET_ACTIVE_MOVIE: return set_active_movie(state, action.index);
         case actionTypes.SET_ACTIVE_FILTER: return set_active_filter(state, action.filter);
+        case actionTypes.FETCH_MOVIES_GENRE_SUCCESS: return fetch_movies_genre_success(state, action.genreList);
         default: return state
     }
 }

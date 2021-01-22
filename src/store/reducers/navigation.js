@@ -20,7 +20,7 @@ const isLoading = (state, loading) => {
     }
 }
 
-
+ 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.CHANGE_MOBILE: return changeMobile(state, action.mobile);

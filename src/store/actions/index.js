@@ -4,7 +4,9 @@ export {
     fetch_movies_failed,
     active_movie,
     set_active_movie,
-    set_active_filter
+    set_active_filter,
+    fetch_movies_genre,
+    fetch_movies_genre_success
 } from './movies';
 
 export {

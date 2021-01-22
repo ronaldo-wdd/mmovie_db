@@ -14,6 +14,19 @@ export const fetch_movies_success = movies => {
     }
 }
 
+export const fetch_movies_genre = () => {
+    return {
+        type: actionTypes.FETCH_MOVIES_GENRE
+    }
+}
+
+export const fetch_movies_genre_success = genreList => {
+    return {
+        type: actionTypes.FETCH_MOVIES_GENRE_SUCCESS,
+        genreList: genreList
+    }
+}
+
 export const fetch_movies_failed = () => {
     return {
         type: actionTypes.FETCH_MOVIES_FAILED

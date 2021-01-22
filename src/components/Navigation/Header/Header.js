@@ -41,7 +41,7 @@ class Header extends Component {
 
 const mapStateToProps = state => {
     return {
-        activeFilter: state.activeFilter
+        activeFilter: state.movies.activeFilter
     }
 }
 

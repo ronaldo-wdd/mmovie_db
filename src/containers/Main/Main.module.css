@@ -1,11 +1,11 @@
 .Main {
     position: relative;
     width: 100vw;
-    height: 70vh;
+    /* height: 70vh; */
 }
 
-.MoviesList {
-    /* transform: translateY(-12px); */
+.Main > div:last-child {
+    transform: translateY(-12px);
 }
 
 
@@ -20,5 +20,6 @@
         height: 60px;
         background: linear-gradient(185deg, #1d1d1b00 30%, #1d1d1b);
         z-index: 1;
+        pointer-events: none;
     }
 }

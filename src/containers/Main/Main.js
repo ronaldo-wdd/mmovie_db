@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import classes from './Main.module.css';
-import Container from 'react-bootstrap/Container';
 
 import { connect } from 'react-redux';
 
@@ -16,9 +15,7 @@ class Main extends Component {
                 <MainMovie />
                 { (this.props.isMobile && !this.props.loading) 
                     && (<Info mobile={true} />) }
-                <Container fluid="xxl" className={classes.MoviesList}>
-                    <MoviesList />
-                </Container>
+                {!this.props.showMoreDetails && <MoviesList />}
             </div>
         );
     }
@@ -28,7 +25,8 @@ class Main extends Component {
 const mapStateToProps = state => {
     return {
         isMobile: state.navigation.mobile,
-        loading: state.navigation.loading
+        loading: state.navigation.loading,
+        showMoreDetails: state.navigation.showMovieDetails
     }
 }
 

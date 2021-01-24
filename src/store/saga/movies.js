@@ -38,6 +38,17 @@ export function* fetchMoviesGenreSaga() {
     }
 }
 
+export function* fetchMovieCastSaga(action) {
+    try {
+        const response = yield axios.get(`/movie/${action.id}/credits`),
+            cast = response.data.cast;
+
+        yield put(actions.fetch_movies_cast_success(cast));        
+    } catch (error) {
+        console.log("fetching movie cast fail", error);
+    }
+}
+
 export function* setActiveMovieSaga(action) {
     let moviesResults = yield select(selectors.moviesResults);
 

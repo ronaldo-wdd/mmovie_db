@@ -1,4 +1,24 @@
+.Movie { 
+    padding: 0 20px 40px; 
+    cursor: pointer;
+}
+.Active img {
+    border: 3px solid #FFCC66;
+}
+
 .Movie img {
     width: 100%;
     height: auto;
+}
+
+
+@media(max-width: 1300px) {
+    .Movie { padding: 0 15px 30px; }
+}
+
+@media(max-width: 992px) {
+    .Movie {
+        padding: 0 12px 24px; 
+        width: 90%;
+    }
 }

@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 
-import './Backdrop.css';
 import classes from './Backdrop.module.css';
-import defaultBackdropPath from '../../../../../assents/images/defaultBackdrop.jpg';
+import defaultBackdropPath from '../../../assents/images/defaultBackdrop.jpg';
 
 
 class Backdrop extends Component {

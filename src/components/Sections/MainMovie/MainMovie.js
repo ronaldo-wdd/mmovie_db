@@ -3,7 +3,6 @@ import classes from './MainMovie.module.css';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 
-import Media from './Media/Media';
 import Info from './Info/Info';
 import playBtn from '../../../assents/svg/play.svg';
 
@@ -13,7 +12,6 @@ const MainMovie = props => {
     
     return (
         <div className={classes.MainMovie}>
-            <Media />
             {props.isMobile
                 ? !props.loading &&
                     <Container fluid="xxl" className={classes.Info}>

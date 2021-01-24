@@ -6,7 +6,9 @@ import Layout from './hoc/Layout/Layout';
 import Header from './components/Navigation/Header/Header';
 import Main from './containers/Main/Main';
 import * as actions from './store/actions';
-// import AllMovies from './containers/AllMovies/AllMovies';
+import Backdrop from './components/Sections/Backdrop/Backdrop';
+import Search from './containers/Search/Search';
+import AnimatedRoutes from './hoc/AnitamatedRoutes/AnimatedRoutes';
 
 
 class App extends Component {
@@ -31,7 +33,14 @@ class App extends Component {
     return (
       <Layout>
         <Header isMobile={this.props.isMobile} />
-        <Route path="/" component={Main} />
+        <Backdrop />
+        <Route render={({location}) => {
+          return (
+            <AnimatedRoutes location={location}/>
+          )
+        }} />
+        {/* <Route path="/search" component={Search} />
+        <Route path="/" component={Main} /> */}
       </Layout>
     );
   }

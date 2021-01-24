@@ -1,4 +1,15 @@
 .MoviesList {
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    padding-bottom: 20px;
+    margin-bottom: 150px;
+}
+
+.MoviesList > div:last-child {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.MoviesList > div:first-child {
+    transform: translateX(-3805px);
 }

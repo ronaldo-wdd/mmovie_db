@@ -1,0 +1,27 @@
+.CastList {
+    display: flex;
+    overflow-x: visible;
+    margin-bottom: 30px;
+
+}
+
+.Cast { margin-right: 20px; }
+.Cast img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.Cast p {
+    font-size: .8rem;
+    padding: 5px 0;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: clip;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+/* @media(max-width: 768px) {
+    .CastList { overflow: scroll; }
+} */

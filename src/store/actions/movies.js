@@ -14,6 +14,13 @@ export const fetch_movies_success = movies => {
     }
 }
 
+export const fetch_movies_failed = () => {
+    return {
+        type: actionTypes.FETCH_MOVIES_FAILED
+    }
+}
+
+
 export const fetch_movies_genre = () => {
     return {
         type: actionTypes.FETCH_MOVIES_GENRE
@@ -27,11 +34,21 @@ export const fetch_movies_genre_success = genreList => {
     }
 }
 
-export const fetch_movies_failed = () => {
+
+export const fetch_movies_cast = id => {
     return {
-        type: actionTypes.FETCH_MOVIES_FAILED
+        type: actionTypes.FETCH_MOVIES_CAST,
+        id: id
     }
 }
+
+export const fetch_movies_cast_success = cast => {
+    return {
+        type: actionTypes.FETCH_MOVIES_CAST_SUCCESS,
+        cast: cast
+    }
+}
+
 
 export const active_movie = index => {
     return {
@@ -46,6 +63,7 @@ export const set_active_movie = index => {
         index: index
     }
 }
+
 
 export const set_active_filter = filter => {
     return {

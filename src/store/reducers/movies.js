@@ -6,6 +6,7 @@ const initialState = {
     genresList: null,
     error: false,
     activeMovie: 0,
+    activeMovieCast: [],
     activeFilter: 'popular'
 }
 
@@ -34,14 +35,22 @@ const fetch_movies_genre_success = (state, genresList) => {
     }
 }
 
-const fetch_more_movies_success = (state, movies) => {
+// const fetch_more_movies_success = (state, movies) => {
+//     return {
+//         ...state,
+//         fetchedMovies: movies,
+//         movies: [...state.movies].concat(movies.results),
+//         error: false
+//     }
+// }
+
+const fetch_movie_cast_success = (state, cast) => {
     return {
         ...state,
-        fetchedMovies: movies,
-        movies: [...state.movies].concat(movies.results),
-        error: false
+        activeMovieCast: cast
     }
 }
+
 const set_active_movie = (state, index) => {
     return {
         ...state,
@@ -64,6 +73,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_ACTIVE_MOVIE: return set_active_movie(state, action.index);
         case actionTypes.SET_ACTIVE_FILTER: return set_active_filter(state, action.filter);
         case actionTypes.FETCH_MOVIES_GENRE_SUCCESS: return fetch_movies_genre_success(state, action.genreList);
+        case actionTypes.FETCH_MOVIES_CAST_SUCCESS: return fetch_movie_cast_success(state, action.cast);
         default: return state
     }
 }

@@ -12,12 +12,13 @@
     flex-direction: column;
     justify-content: center;
 }
+.Main.All { display: block; }
 
 .Main h1 {
     font-size: 3rem;
     text-transform: uppercase;
     font-weight: bold;
-    margin: 20px 0;
+    margin: 0 0 20px;
 }
 /* .Main h1 span { 
     font-size: 2rem; 
@@ -58,6 +59,7 @@
     display: flex;
     justify-content: center;
     pointer-events: none;
+    height: 70vh;
 }
 .PlayTrailer img {
     width: 70px;
@@ -68,7 +70,7 @@
 
 .NextBtn {
     position: absolute;
-    bottom: 40px;
+    bottom: 50px;
     right: 0;
 }
 
@@ -78,7 +80,7 @@
 }
 
 @media(max-width: 992px) {
-    .Main { overflow-x: hidden; }
+    .Main ul { overflow-x: hidden; }
     .Main h1 {
         overflow: hidden;
         text-overflow: clip;
@@ -89,8 +91,9 @@
 }
 
 @media(max-width: 768px) {
-    .Info { height: 100%; }
+    .Info { height: 100%; margin-bottom: 44px }
     .Main h1 { display: none; }
+    .Main ul { overflow: visible; }
     .PlayTrailer { display: none; }
     .NextBtn { bottom: 25px }
 }

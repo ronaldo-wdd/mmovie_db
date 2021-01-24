@@ -14,3 +14,17 @@ export const is_loading = loading => {
         loading: loading
     }
 }
+
+export const show_movie_details = show => {
+    return {
+        type: actionTypes.SHOW_MOVIE_DETAILS,
+        show: show
+    }
+}
+
+export const show_all_movies = show => {
+    return {
+        type: actionTypes.SHOW_ALL_MOVIES,
+        show: show
+    }
+}

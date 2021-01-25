@@ -4,11 +4,6 @@
     /* height: 70vh; */
 }
 
-.Main > div:last-child {
-    transform: translateY(-12px);
-}
-
-
 @media(max-width: 768px) {
     .Main { height: 62vh; }
 }

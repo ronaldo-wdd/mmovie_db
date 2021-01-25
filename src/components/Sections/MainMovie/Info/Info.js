@@ -43,16 +43,18 @@ class Info extends Component {
             movieGenres = movie.genre_ids.map((id, index) => {
                 return <li key={index}>{this.props.genresList[id]}</li>
             }),
-            mainStyle = this.props.showMoreDetails 
+            mainStyle = (this.props.showMoreDetails && !this.props.isMobile)
                 ? {display: "block", marginTop: this.state.mainOffsetTop}
                 : {};
         
         return (
             <Container className={classes.Info} fluid="xxl" 
-                style={this.props.mobile ? {height: 'auto'} : {height: '70vh'}} >
+                style={this.props.isMobile ? {height: 'auto'} : {height: '73vh'}} >
 
-                <Col sm="12" md="5" className={classes.Main} style={mainStyle}>
-                    <h1 ref={this.mainRef}>{movie.title}</h1>
+                <Col sm="12" md="6" lg="5" className={classes.Main} style={mainStyle}>
+                    <div className={classes.Title} >
+                        <h1 ref={this.mainRef} title={movie.title}>{movie.title}</h1>
+                    </div>
                     <ul>{movieGenres}</ul>
                     <div className={classes.Stars}>
                         {stars}
@@ -69,11 +71,11 @@ class Info extends Component {
                     <img src={playBtn} alt="" />
                 </Col>
 
-                <Container fluid="xxl" className={classes.NextBtn}>
+                <div className={classes.NextBtn}>
                     {!this.props.showMoreDetails &&
                         <Button type="next"
                         click={ ()=> this.props.onSetActiveMovie(this.props.activeMovie + 1)}/>}
-                </Container>
+                </div>
             </Container>
         );
     }
@@ -86,7 +88,8 @@ const mapStateToProps = state => {
         genresList: state.movies.genresList,
         activeMovie: state.movies.activeMovie,
         loading: state.navigation.loading,
-        showMoreDetails: state.navigation.showMovieDetails
+        showMoreDetails: state.navigation.showMovieDetails,
+        isMobile: state.navigation.mobile
     }
 }
 

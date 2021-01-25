@@ -4,10 +4,8 @@ import { connect } from "react-redux";
 
 import Layout from './hoc/Layout/Layout';
 import Header from './components/Navigation/Header/Header';
-import Main from './containers/Main/Main';
 import * as actions from './store/actions';
 import Backdrop from './components/Sections/Backdrop/Backdrop';
-import Search from './containers/Search/Search';
 import AnimatedRoutes from './hoc/AnitamatedRoutes/AnimatedRoutes';
 
 
@@ -39,8 +37,6 @@ class App extends Component {
             <AnimatedRoutes location={location}/>
           )
         }} />
-        {/* <Route path="/search" component={Search} />
-        <Route path="/" component={Main} /> */}
       </Layout>
     );
   }

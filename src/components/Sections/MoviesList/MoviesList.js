@@ -14,7 +14,6 @@ class MoviesList extends Component {
     constructor (props) {
         super(props);
         this.rowRef = React.createRef();
-        // this.colRef = React.createRef();
     }
     
     state = {
@@ -38,6 +37,12 @@ class MoviesList extends Component {
         const deltaX = scrollX(e, this.state.deltaX, this.state.maxDeltaX);
         this.setState({deltaX: deltaX});
     }
+
+    handleShowAll () {
+        this.setState({deltaX: 0});
+        this.props.history.push("/movies");
+    }
+    
     
     render () {
         const movies = this.props.movies.map((movie, key) => {
@@ -49,17 +54,18 @@ class MoviesList extends Component {
                 ? {}
                 : {flexWrap: 'nowrap', width: '95%'}
         
+                
         return (
             <Container fluid="xxl" className={classes.MoviesList} >
                 <Row ref={this.rowRef}
-                    onWheel={e => this.props.showAll && this.handleScrollX(e)}
+                    onWheel={e => !this.props.showAll && this.handleScrollX(e)}
                     style={{
                         ...rowStyle,
                         transform: `translateX(-${this.state.deltaX}px)`
                         }} >
                     {movies}
                 </Row>
-                <Buttons type="showAll" click={() => this.props.onShowAllMovies(true)} />
+                <Buttons type="showAll" click={() => this.handleShowAll()} />
             </Container>
         );
     }
@@ -68,7 +74,6 @@ class MoviesList extends Component {
 
 const mapStateToProps = state => {
     return {
-        movies: state.movies.movies,
         activeMovie: state.movies.activeMovie,
         showAll: state.navigation.showAllMovies,
     }
@@ -76,7 +81,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onShowAllMovies: show => dispatch(actions.show_all_movies(show)),
         onSetActiveMovie: id => dispatch(actions.set_active_movie(id))
     }
 }

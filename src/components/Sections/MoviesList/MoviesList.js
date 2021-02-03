@@ -3,69 +3,85 @@ import classes from './MoviesList.module.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { connect } from "react-redux";
+import { animateScroll } from 'react-scroll';
 
 import * as actions from '../../../store/actions';
 import Movie from './Movie/Movie';
 import Buttons from '../../UI/Buttons/Buttons';
-import { scrollX } from '../../../shared/utility';
 
 
 class MoviesList extends Component {
     constructor (props) {
         super(props);
         this.rowRef = React.createRef();
+        this.containerRef = React.createRef();
+    }
+
+    state = { gsapAnim: null, movies: [] }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return (this.props !== nextProps || JSON.stringify(this.state) !== JSON.stringify(nextState)) 
+            ? true : false;
     }
     
-    state = {
-        deltaX: 0,
-        maxDeltaX: 0
-    }
+    componentDidUpdate () {
+        let movies = [];
+        this.props.history.location.pathname === '/movies'
+            ? movies = this.props.movies
+            : movies = this.props.movies.slice(0, 10);
 
-    componentDidMount () {
-        window.addEventListener('resize', this.getRowDetaX());
-        setTimeout(() => {
-            this.getRowDetaX();
-        }, 700);
-    }
+        this.setState({movies: movies});
 
-    getRowDetaX () {
-        const maxDeltaX = this.rowRef.current.scrollWidth - this.rowRef.current.clientWidth;
-        this.setState({maxDeltaX: maxDeltaX});
+        if(this.props.scrollTrigger == null) return;
+        this.props.showAll || this.props.showMoreDetails
+            ? this.props.scrollTrigger.disable()
+            : this.props.scrollTrigger.enable()
     }
-
-    handleScrollX (e) {
-        const deltaX = scrollX(e, this.state.deltaX, this.state.maxDeltaX);
-        this.setState({deltaX: deltaX});
-    }
+    
 
     handleShowAll () {
-        this.setState({deltaX: 0});
+        const containerTop = this.containerRef.current;
+        window.scrollTo(containerTop);
         this.props.history.push("/movies");
+    }
+
+    handleSelectedMovie (id) {
+        if (this.props.showAll) {
+            this.props.history.push("/");
+            animateScroll.scrollToTop({ smooth: true });
+        } else animateScroll.scrollToTop({ smooth: true });
+        this.props.onSetActiveMovie(id);
     }
     
     
     render () {
-        const movies = this.props.movies.map((movie, key) => {
+        let movies = this.state.movies.map((movie, key) => {
             return <Movie key={key} movie={movie}
-                    active={this.props.activeMovie === key ? true : false}
-                    click={ () => this.props.onSetActiveMovie(key)} />
-        }),
-            rowStyle = this.props.showAll 
-                ? {}
-                : {flexWrap: 'nowrap', width: '95%'}
-        
-                
+                active={this.props.activeMovie === key ? true : false}
+                click={ () => this.handleSelectedMovie(key)} /> }),
+            rowStyle = !this.props.showAll
+                && {flexWrap: 'nowrap', width: '95%', transform: 'translate(0)'},
+            moviesListClasses = [classes.MoviesList];
+
+            this.props.showMoreDetails && moviesListClasses.push(classes.Hidden);
+
         return (
-            <Container fluid="xxl" className={classes.MoviesList} >
-                <Row ref={this.rowRef}
-                    onWheel={e => !this.props.showAll && this.handleScrollX(e)}
-                    style={{
-                        ...rowStyle,
-                        transform: `translateX(-${this.state.deltaX}px)`
-                        }} >
+            <Container fluid="xxl" 
+                id="moviesList"
+                ref={this.containerRef}
+                className={moviesListClasses.join(' ')} >
+                <Row className="moviesRow" ref={this.rowRef}
+                    style={{...rowStyle}} >
                     {movies}
                 </Row>
-                <Buttons type="showAll" click={() => this.handleShowAll()} />
+
+                {this.props.showAll  
+                    ? <Buttons type="goBack" 
+                        className={classes.BackBtn} 
+                        click={() => this.props.history.goBack()} />
+                    : <Buttons type="showAll" 
+                        className={classes.AllBtn} 
+                        click={() => this.handleShowAll()} />}
             </Container>
         );
     }
@@ -76,6 +92,8 @@ const mapStateToProps = state => {
     return {
         activeMovie: state.movies.activeMovie,
         showAll: state.navigation.showAllMovies,
+        movies: state.movies.movies,
+        showMoreDetails: state.navigation.showMovieDetails,
     }
 }
 

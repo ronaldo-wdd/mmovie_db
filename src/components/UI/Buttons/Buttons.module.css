@@ -14,7 +14,6 @@
 }
 
 .NextBtn, .BackBtn, .ShowAllBtn {
-    position: relative;
     color: #FFCC66;
     text-transform: uppercase;
     margin: 0;
@@ -27,17 +26,19 @@
     content: "";
     background: #FFCC66;
     position: absolute;
-    max-width: 150%;
-    max-height: 170%;
+    max-width: calc(100% + 20px);
+    max-height: calc(100% + 15px);
     transition: all .3s;
     z-index: 9;
 }
 
-.NextBtn::after {
-    left: 0;
-    width: 150%;
+.NextBtn::after, .BackBtn::after {
+    width: calc(100% + 20px);
     height: 3px;
 }
+.NextBtn::after { left: 0; }
+.BackBtn::after { right: 0; }
+
 .NextBtn:hover::after,.BackBtn:hover::after, .ShowAllBtn:hover::after {
     max-width: 100%;
     max-height: 100%;
@@ -47,5 +48,5 @@
     top: 0;
     right: -10px;
     width: 3px;
-    height: 170%;
+    height: calc(100% + 15px);
 }

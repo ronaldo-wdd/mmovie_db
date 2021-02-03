@@ -2,8 +2,8 @@ import classes from './CastList.module.css';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Aux from '../../../../../../hoc/Auxilliary/Auxilliary';
-import defaultProfilePath from '../../../../../../assents/images/profile.jpg';
+import Aux from '../../../../../hoc/Auxilliary/Auxilliary';
+import defaultProfilePath from '../../../../../assents/images/profile.jpg';
 
 
 const CastList = props => {

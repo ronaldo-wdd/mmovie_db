@@ -17,7 +17,7 @@ const Movie = props => {
             onClick={props.click} >
             <img alt={movie.title}
                 src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} 
-                onError = {e => e.target.src = {defaultPosterPath}} />
+                onError = {e => e.target.src = defaultPosterPath} />
         </Col>
     );
 }

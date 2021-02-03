@@ -22,6 +22,27 @@ export function* fetchMoviesSaga() {
     }
 }
 
+
+export function* fetchMoreMoviesSaga() {
+    const totalPages = yield select(selectors.totalPages),
+        page = yield select(selectors.page),
+        moviesFilter = yield select(selectors.activeFilter);
+
+    if (totalPages - page <= 0) return;
+        
+    try {
+        const response = yield axios.get(`/movie/${moviesFilter}`, {params: {page: page+1}});
+        // const response = yield axios.get(`/movie/${moviesFilter}`);
+        const fetchedMovies = response.data;
+
+        yield put(actions.fetch_more_movies_success(fetchedMovies));
+    } catch (error) {
+        console.log(error);
+        yield put (actions.fetch_movies_failed());
+    }
+}
+
+
 export function* fetchMoviesGenreSaga() {
     try {
         const response = yield axios.get('/genre/movie/list'),
@@ -38,6 +59,7 @@ export function* fetchMoviesGenreSaga() {
     }
 }
 
+
 export function* fetchMovieCastSaga(action) {
     try {
         const response = yield axios.get(`/movie/${action.id}/credits`),
@@ -48,6 +70,7 @@ export function* fetchMovieCastSaga(action) {
         console.log("fetching movie cast fail", error);
     }
 }
+
 
 export function* setActiveMovieSaga(action) {
     let moviesResults = yield select(selectors.moviesResults);

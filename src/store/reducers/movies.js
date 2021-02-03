@@ -35,14 +35,14 @@ const fetch_movies_genre_success = (state, genresList) => {
     }
 }
 
-// const fetch_more_movies_success = (state, movies) => {
-//     return {
-//         ...state,
-//         fetchedMovies: movies,
-//         movies: [...state.movies].concat(movies.results),
-//         error: false
-//     }
-// }
+const fetch_more_movies_success = (state, movies) => {
+    return {
+        ...state,
+        fetchedMovies: movies,
+        movies: [...state.movies].concat(movies.results),
+        error: false
+    }
+}
 
 const fetch_movie_cast_success = (state, cast) => {
     return {
@@ -69,6 +69,7 @@ const set_active_filter = (state, filter) => {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_MOVIES_SUCCESS: return fetch_movies_success(state, action.movies);
+        case actionTypes.FETCH_MORE_MOVIES_SUCCESS: return fetch_more_movies_success(state, action.movies);
         case actionTypes.FETCH_MOVIES_FAILED: return fetch_movies_failed(state);
         case actionTypes.SET_ACTIVE_MOVIE: return set_active_movie(state, action.index);
         case actionTypes.SET_ACTIVE_FILTER: return set_active_filter(state, action.filter);

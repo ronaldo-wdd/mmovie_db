@@ -1,9 +1,6 @@
 .Main {
     position: relative;
     width: 100vw;
-    /* height: 70vh; */
-}
-
-@media(max-width: 768px) {
-    .Main { height: 62vh; }
+    overflow-x: hidden;
+    overflow-y: visible;
 }

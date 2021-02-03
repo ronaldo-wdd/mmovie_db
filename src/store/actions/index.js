@@ -8,7 +8,9 @@ export {
     fetch_movies_genre,
     fetch_movies_genre_success,
     fetch_movies_cast,
-    fetch_movies_cast_success
+    fetch_movies_cast_success,
+    fetch_more_movies,
+    fetch_more_movies_success
 } from './movies';
 
 export {

@@ -20,6 +20,19 @@ export const fetch_movies_failed = () => {
     }
 }
 
+export const fetch_more_movies = () => {
+    return {
+        type: actionTypes.FETCH_MORE_MOVIES
+    }
+}
+
+export const fetch_more_movies_success = movies => {
+    return {
+        type: actionTypes.FETCH_MORE_MOVIES_SUCCESS,
+        movies: movies
+    }
+}
+
 
 export const fetch_movies_genre = () => {
     return {

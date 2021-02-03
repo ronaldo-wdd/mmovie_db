@@ -1,16 +1,37 @@
 .MoviesList {
     position: relative;
     padding-bottom: 20px;
-    margin-bottom: 100px;
+    /* margin-bottom: 15px; */
     transform: translateY(-12px);
+    max-width: calc(100vw - 160px);
+    height: auto;
+}
+.Hidden {
+    display: none;
 }
 
-.MoviesList > div:last-child {
+.ShowAll {
+    flex-wrap: nowrap;
+    width: 95%;
+    transform: translate(0);
+}
+
+.AllBtn {
     position: absolute;
     right: 0;
     bottom: 0;
 }
+.BackBtn {
+    position: absolute;
+    left: 0;
+    top: -56px;
+}
 
-.MoviesList > div:first-child {
-    transform: translateX(-3805px);
+
+@media(max-width: 768px) {
+    .MoviesList { max-width: calc(100vw - 60px); }
+}
+
+@media(max-width: 576px) {
+    .MoviesList { max-width: calc(100vw - 40px); }
 }

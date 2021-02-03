@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import Layout from './hoc/Layout/Layout';
 import Header from './components/Navigation/Header/Header';
+// import Footer from './components/Navigation/Footer/Footer';
 import * as actions from './store/actions';
 import Backdrop from './components/Sections/Backdrop/Backdrop';
 import AnimatedRoutes from './hoc/AnitamatedRoutes/AnimatedRoutes';
@@ -37,6 +38,7 @@ class App extends Component {
             <AnimatedRoutes location={location}/>
           )
         }} />
+        {/* <Footer /> */}
       </Layout>
     );
   }

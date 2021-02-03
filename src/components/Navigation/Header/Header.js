@@ -3,6 +3,7 @@ import classes from './Header.module.css';
 import Container from 'react-bootstrap/Container';
 import * as actions from '../../../store/actions';
 import { connect } from 'react-redux';
+import { animateScroll } from 'react-scroll';
 
 import Logo from './Logo/Logo';
 import Nav from './Nav/Nav';
@@ -13,6 +14,9 @@ class Header extends Component {
     }
 
     handleNavLinksClick = (filter) => {
+        animateScroll.scrollToTop({ smooth: true });
+        
+        if ( filter === this.props.activeFilter ) return;
         (!this.props.isMobile || this.state.showMobileNav)
             && this.props.onSetFilter(filter);
     }

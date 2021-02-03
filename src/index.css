@@ -5,6 +5,10 @@ body {
   color: #fff;
   background-color: #1D1D1B;
 
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -15,3 +19,6 @@ code {
 }
 
 a, a:hover { text-decoration: none; }
+
+.pin-spacer { pointer-events: none; }
+.pin-spacer > div { pointer-events: auto; }

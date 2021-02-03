@@ -2,8 +2,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 70vh;
+    width: 100vw;
+    height: 73vh;
     overflow: hidden;
     z-index: -1;
 }
@@ -48,6 +48,10 @@
     transform: skewX(8deg) translateX(-22%);
 }
 
+.After {
+    background-image: linear-gradient(#1d1d1b00 60%, #1d1d1b);
+}
+
 
 @media(max-width: 1200px) {
     .Carousel > div img { height: 70vh; }    
@@ -89,4 +93,8 @@
     .NextBackdrop img {
         transform: translateY(-74%) !important;
     }
+}
+
+@media (min-width: 1400px) {
+    .Carousel { height: 70vh!important; }
 }

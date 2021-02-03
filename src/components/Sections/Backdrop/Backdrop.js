@@ -6,9 +6,15 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import classes from './Backdrop.module.css';
 import defaultBackdropPath from '../../../assents/images/defaultBackdrop.jpg';
+import { backdropGsap } from '../../../shared/Timelines/gsapAnimations';
 
 
 class Backdrop extends Component {
+    constructor (props) {
+        super(props);
+        this.afterRef = React.createRef();
+    }
+    
     state = {
         mainMovies: [],
         loading: true
@@ -31,6 +37,8 @@ class Backdrop extends Component {
                 
             this.setState({mainMovies: mainMovies, loading: false});
         }
+
+        this.afterRef.current != null && backdropGsap(this.afterRef.current);
     }
     
     render () {
@@ -54,7 +62,7 @@ class Backdrop extends Component {
                             className={backdropsConfig[i].class} >
                             {movies[i] && (
                                 <img alt={movies[i].title}
-                                src={`https://image.tmdb.org/t/p/original${movies[i].backdrop_path}`}
+                                src={`https://image.tmdb.org/t/p/w1280${movies[i].backdrop_path}`}
                                 onError={ e => e.target.src=defaultBackdropPath } />
                             )}
                         </Col>
@@ -66,10 +74,11 @@ class Backdrop extends Component {
         return (
             !this.state.loading &&
 
-            <div className={classes.Carousel} >
+            <div className={classes.Carousel} ref={this.afterRef} >
                 <TransitionGroup component={null}>
                     {displayedMovies}
                 </TransitionGroup>
+                <div id='after' className={classes.After} />
             </div>
         );
     }

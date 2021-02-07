@@ -53,18 +53,17 @@ export const gsapAnim = selector => {
             end: 'bottom bottom-=15px',
             onUpdate: () => {
                 infoTw.vars.y = -window.scrollY/2;
-                infoTw.invalidate().restart() },
-            onEnterBack: self => {
-                console.log(self.progress);
-                infoTw.vars.y = -window.scrollY/2;
-                infoTw.invalidate().restart()
-            }
+                infoTw.invalidate().restart() }
         }),
         infoST3 = ScrollTrigger.create({
             id: 'info_opacity',
             trigger: moviesListEl,
             start: 0,
             end: '+=250',
+            onEnter: () => {
+                infoTw.vars.opacity = 1;
+                infoTw.invalidate().restart();
+            },
             onUpdate: self => {
                 infoTw.vars.opacity = -self.progress + 1;
                 infoTw.invalidate().restart();

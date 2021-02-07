@@ -9,7 +9,8 @@
     left: 0;
 }
 .Mobile, .MoreDetails {
-    height: auto;
+    height: auto !important;
+    min-height: auto !important;
     margin-bottom: 50px;
 }
 .Info > div { padding: 0;}
@@ -57,7 +58,6 @@
 
 .Stars {
     display: flex;
-    margin-bottom: 35px;
 }
 .Stars img {
     height: 24px;
@@ -68,6 +68,10 @@
     margin: auto 0; 
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+.SeeMoreBtn {
+    margin-top: 30px;
 }
 
 .PlayTrailer {

@@ -9,7 +9,6 @@ import starIcon from '../../../assents/images/icons/star.png';
 import Button from '../../UI/Buttons/Buttons';
 import playBtn from '../../../assents/svg/play.svg';
 import MovieDetails from './MovieDetails/MovieDetails';
-// import { infoGsap } from '../../../shared/Timelines/gsapAnimations';
 
 
 class Info extends Component {
@@ -21,11 +20,14 @@ class Info extends Component {
     state = { mainOffsetTop: 0 }
 
     componentDidMount () {
-        this.props.onShowMoreDetails(false);
+        this.props.id_param 
+            && this.toggleMoreDetails(true, this.props.id_param);
     }
 
     componentDidUpdate () {
         if (this.props.scrollTrigger == null) return;
+        this.props.scrollTrigger.opacity.refresh();
+        this.props.scrollTrigger.y.refresh();
         this.props.scrollTrigger.opacity.disable();
         this.props.scrollTrigger.y.disable();
         
@@ -43,15 +45,21 @@ class Info extends Component {
     }
 
     toggleMoreDetails (show, id) {
-        const mainOffsetTop = this.mainRef.current.offsetTop;
-
-        show && this.props.onGetMovieCast(id);
         this.props.onShowMoreDetails(show);
+        if (show) {
+            this.props.onGetMovieCast(id);
+            this.setOffsetTop();
+        } else this.props.id_param && this.props.history.goBack();
+    }
+
+    setOffsetTop () {
+        const mainOffsetTop = this.mainRef.current
+            ? this.mainRef.current.offsetTop : 70;
         this.setState({mainOffsetTop: mainOffsetTop});
     }
     
     render () {
-        if (this.props.loading) return <Container className={classes.Info} />
+        if (!this.props.loaded) return <Container className={classes.Info} />
         
         const movie = this.props.movies[this.props.activeMovie],
             vote = movie.vote_average,
@@ -84,9 +92,9 @@ class Info extends Component {
                         <p>{vote*10}%</p>
                     </div>
                     {this.props.showMoreDetails && <MovieDetails movie={movie} />}
-                    <Button
+                    <Button className={classes.SeeMoreBtn}
                         click={() => this.toggleMoreDetails(!this.props.showMoreDetails, movie.id)}
-                        >{!this.props.showMoreDetails ? 'See more' : 'Close'}
+                        >{!this.props.showMoreDetails ? 'See more' : 'Go Back'}
                     </Button>
                 </Col>
 
@@ -110,7 +118,7 @@ const mapStateToProps = state => {
         movies: state.movies.movies,
         genresList: state.movies.genresList,
         activeMovie: state.movies.activeMovie,
-        loading: state.navigation.loading,
+        loaded: state.navigation.loaded,
         showMoreDetails: state.navigation.showMovieDetails,
         isMobile: state.navigation.mobile,
         showAll: state.navigation.showAllMovies

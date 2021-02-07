@@ -4,7 +4,8 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 import { Route, Switch } from 'react-router-dom';
 
 import Main from '../../containers/Main/Main';
-import Search from '../../containers/Search/Search';
+import Search from '../../components/Pages/Search/Search';
+import Movie from '../../components/Pages/Movie/Movie';
 
 
 const AnimatedRoutes = props => {
@@ -18,6 +19,7 @@ const AnimatedRoutes = props => {
                 timeout = {{enter: 350, exit: 350}} >
                 <Switch>
                     <Route path="/search" component={Search} />
+                    <Route path="/movie/:id" component={Movie} />
                     <Route path="/" component={Main} />
                 </Switch>
             </Transition>

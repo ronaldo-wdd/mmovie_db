@@ -12,6 +12,7 @@ class Main extends Component {
     constructor (props) {
         super(props);
         this.mainRef = React.createRef();
+        this.onScroll = this.fetchMoreMovies.bind(this)
     }
       
     state = {
@@ -19,27 +20,45 @@ class Main extends Component {
         gsapAnim: null
     }
 
-    componentDidMount () {
+    componentDidMount() {
+        window.addEventListener('scroll', this.onScroll);
+
         setTimeout(() => {
-            console.log(this.mainRef.current);
-            let gsap = gsapAnim(this.mainRef.current);
+            let gsap = gsapAnim(this.mainRef.current),
+                position = Math.max(
+                    this.mainRef.current.querySelector('#moviesList').getBoundingClientRect().top - 125,
+                    this.props.scrollPosition);
             this.setState({gsapAnim: gsap});
+            this.props.onUpdateScrollP(position);
         }, 500);
     }
     
-    componentDidUpdate () {
+    componentDidUpdate() {
         if (this.props.history.location.pathname === '/movies') {
             this.props.onShowAllMovies(true);
-            window.addEventListener('scroll', this.handleScroll.bind(this));
-        }
-
-        else {
+            this.handleScroll(true);
+        } else {
+            this.handleScroll(false);
             this.props.onShowAllMovies(false);
-            window.removeEventListener('scroll', this.handleScroll.bind(this));
         }
     }
 
-    handleScroll () {
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
+    }
+
+    handleScroll(showAll) {
+        showAll
+            ? window.scrollTo(0, this.props.scrollPosition)
+            : window.scrollTo(0, 0);
+        
+        this.state.gsapAnim && 
+        Object.values(this.state.gsapAnim.infoST).forEach(scrollTrigger => {
+            scrollTrigger.refresh();
+        });
+    }
+    
+    fetchMoreMovies() {
         const limit = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
             document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight ) - window.innerHeight;
 
@@ -47,15 +66,15 @@ class Main extends Component {
             this.props.onShowMoreMovies();
     }
     
-    
     render() {
         return (
             <div className={classes.Main} ref={this.mainRef}>
-                <Info scrollTrigger={this.state.gsapAnim 
-                    && this.state.gsapAnim.infoST} />
-                <MoviesList 
-                    history={this.props.history} 
-                    // movies={this.state.movies}
+                <Info
+                    history={this.props.history}
+                    scrollTrigger={this.state.gsapAnim 
+                        && this.state.gsapAnim.infoST} />
+                <MoviesList
+                    history={this.props.history}
                     scrollTrigger={this.state.gsapAnim 
                         && this.state.gsapAnim.moviesListST} />
             </div>
@@ -68,16 +87,16 @@ const mapStateToProps = state => {
     return {
         isMobile: state.navigation.mobile,
         loading: state.navigation.loading,
-        // showMoreDetails: state.navigation.showMovieDetails,
         showAll: state.navigation.showAllMovies,
-        // movies: state.movies.movies
+        scrollPosition: state.navigation.moviesListScrollPosition
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onShowAllMovies: show => dispatch(actions.show_all_movies(show)),
-        onShowMoreMovies: () => dispatch(actions.fetch_more_movies())
+        onShowMoreMovies: () => dispatch(actions.fetch_more_movies()),
+        onUpdateScrollP: position => dispatch(actions.update_scroll_position(position))
     }
 }
 

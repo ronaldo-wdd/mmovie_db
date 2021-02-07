@@ -6,7 +6,7 @@ import * as selectors from "./selectors";
 
 
 export function* fetchMoviesSaga() {
-    yield put(actions.is_loading(true));
+    yield put(actions.loaded(false));
 
     let moviesFilter = yield select(selectors.activeFilter);
 
@@ -15,7 +15,7 @@ export function* fetchMoviesSaga() {
         const fetchedMovies = response.data;
 
         yield put(actions.fetch_movies_success(fetchedMovies));
-        yield put(actions.is_loading(false));
+        yield put(actions.loaded(true));
         
     } catch (error) {
         yield put (actions.fetch_movies_failed());

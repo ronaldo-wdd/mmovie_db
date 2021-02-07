@@ -35,7 +35,7 @@ class App extends Component {
         <Backdrop />
         <Route render={({location}) => {
           return (
-            <AnimatedRoutes location={location}/>
+            <AnimatedRoutes location={location} />
           )
         }} />
         {/* <Footer /> */}
@@ -48,7 +48,7 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     isMobile: state.navigation.mobile,
-    loading: state.navigation.loading
+    loaded: state.navigation.loaded
   }
 }
 

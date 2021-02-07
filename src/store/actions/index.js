@@ -14,8 +14,9 @@ export {
 } from './movies';
 
 export {
-    is_loading,
+    loaded,
     change_mobile,
     show_movie_details,
-    show_all_movies
+    show_all_movies,
+    update_scroll_position
 } from './navigation';

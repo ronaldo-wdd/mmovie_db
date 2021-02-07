@@ -8,10 +8,10 @@ export const change_mobile = mobile => {
     }
 }
 
-export const is_loading = loading => {
+export const loaded = loaded => {
     return {
-        type: actionTypes.IS_LOADING,
-        loading: loading
+        type: actionTypes.LOADED,
+        loaded: loaded
     }
 }
 
@@ -26,5 +26,12 @@ export const show_all_movies = show => {
     return {
         type: actionTypes.SHOW_ALL_MOVIES,
         show: show
+    }
+}
+
+export const update_scroll_position = position => {
+    return {
+        type: actionTypes.UPDATE_SCROLL_POSITION,
+        position: position
     }
 }

@@ -15,6 +15,7 @@ export const SET_ACTIVE_FILTER = 'SET_ACTIVE_FILTER';
 
 // navigation reducer
 export const CHANGE_MOBILE = 'CHANGE_MOBILE';
-export const IS_LOADING = 'IS_LOADING';
+export const LOADED = 'LOADED';
 export const SHOW_MOVIE_DETAILS = 'SHOW_MOVIE_DETAILS';
 export const SHOW_ALL_MOVIES = 'SHOW_ALL_MOVIES';
+export const UPDATE_SCROLL_POSITION = 'UPDATE_SCROLL_POSITION';

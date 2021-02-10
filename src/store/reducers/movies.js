@@ -7,7 +7,9 @@ const initialState = {
     error: false,
     activeMovie: 0,
     activeMovieCast: [],
-    activeFilter: 'popular'
+    activeFilter: 'popular',
+    video: null,
+    videoError: false
 }
 
 
@@ -65,6 +67,20 @@ const set_active_filter = (state, filter) => {
     }
 }
 
+const fetch_movie_trailer_success = (state, video) => {
+    return {
+        ...state,
+        video: video,
+        videoError: false
+    }
+}
+const fetch_movie_trailer_failed = state => {
+    return {
+        ...state,
+        videoError: true
+    }
+}
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -75,6 +91,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_ACTIVE_FILTER: return set_active_filter(state, action.filter);
         case actionTypes.FETCH_MOVIES_GENRE_SUCCESS: return fetch_movies_genre_success(state, action.genreList);
         case actionTypes.FETCH_MOVIES_CAST_SUCCESS: return fetch_movie_cast_success(state, action.cast);
+        case actionTypes.FETCH_MOVIE_TRAILER_SUCCESS: return fetch_movie_trailer_success(state, action.video);
+        case actionTypes.FETCH_MOVIE_TRAILER_FAILED: return fetch_movie_trailer_failed(state);
         default: return state
     }
 }

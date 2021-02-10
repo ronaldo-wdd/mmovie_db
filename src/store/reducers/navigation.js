@@ -5,7 +5,8 @@ const initialState = {
     mobile: false,
     showMovieDetails: false,
     showAllMovies: false,
-    moviesListScrollPosition: 0
+    moviesListScrollPosition: 0,
+    showModal: false
 }
 
 
@@ -44,6 +45,13 @@ const updateScrollPosition = (state, position) => {
     }
 }
 
+const showModal = (state, show) => {
+    return {
+        ...state,
+        showModal: show
+    }
+}
+
  
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -52,6 +60,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SHOW_MOVIE_DETAILS: return showMovieDetails(state, action.show);
         case actionTypes.SHOW_ALL_MOVIES: return showAllMovies(state, action.show);
         case actionTypes.UPDATE_SCROLL_POSITION: return updateScrollPosition(state, action.position);
+        case actionTypes.SHOW_MODAL: return showModal(state, action.show);
         default: return state;
     }
 }

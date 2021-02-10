@@ -10,7 +10,10 @@ export {
     fetch_movies_cast,
     fetch_movies_cast_success,
     fetch_more_movies,
-    fetch_more_movies_success
+    fetch_more_movies_success,
+    fetch_movie_trailer,
+    fetch_movie_trailer_success,
+    fetch_movie_trailer_failed
 } from './movies';
 
 export {
@@ -18,5 +21,6 @@ export {
     change_mobile,
     show_movie_details,
     show_all_movies,
-    update_scroll_position
+    update_scroll_position,
+    show_modal
 } from './navigation';

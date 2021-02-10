@@ -84,3 +84,21 @@ export const set_active_filter = filter => {
         filter: filter
     }
 }
+
+export const fetch_movie_trailer = id => {
+    return {
+        type: actionTypes.FETCH_MOVIE_TRAILER,
+        id: id
+    }
+}
+export const fetch_movie_trailer_success = video => {
+    return {
+        type: actionTypes.FETCH_MOVIE_TRAILER_SUCCESS,
+        video: video
+    }
+}
+export const fetch_movie_trailer_failed = () => {
+    return {
+        type: actionTypes.FETCH_MOVIE_TRAILER_FAILED
+    }
+}

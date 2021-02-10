@@ -7,12 +7,11 @@ import * as actions from '../../../store/actions';
 
 import starIcon from '../../../assents/images/icons/star.png';
 import Button from '../../UI/Buttons/Buttons';
-import playBtn from '../../../assents/svg/play.svg';
 import MovieDetails from './MovieDetails/MovieDetails';
 
 
 class Info extends Component {
-    constructor(props) {
+    constructor(props) { 
         super(props);
         this.mainRef = React.createRef();
     }
@@ -96,10 +95,6 @@ class Info extends Component {
                         click={() => this.toggleMoreDetails(!this.props.showMoreDetails, movie.id)}
                         >{!this.props.showMoreDetails ? 'See more' : 'Go Back'}
                     </Button>
-                </Col>
-
-                <Col md="6" className={classes.PlayTrailer}>
-                    <img src={playBtn} alt="" />
                 </Col>
 
                 <div className={classes.NextBtn}>

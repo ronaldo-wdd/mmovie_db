@@ -74,19 +74,6 @@
     margin-top: 30px;
 }
 
-.PlayTrailer {
-    display: flex;
-    justify-content: center;
-    pointer-events: none;
-    height: 73vh;
-}
-.PlayTrailer img {
-    width: 55px;
-    height: auto;
-    cursor: pointer;
-    pointer-events: all;
-}
-
 .NextBtn {
     position: absolute;
     bottom: 50px;
@@ -116,16 +103,6 @@
     .Main { display: block; margin-bottom: 20px }
     .Main h1 { -webkit-line-clamp: 3; }
     .Main ul { overflow: visible; }
-    .PlayTrailer {
-        position: absolute;
-        top: 31vh;
-        left: 50%;
-        width: 50px;
-        height: auto;
-        transform: translate(-50%, -70%);
-        cursor: pointer;
-        z-index: 2;
-    }
     .NextBtn { bottom: 25px }
     /* .NextBtn { top: 56vh; bottom: auto; }
     .NextBtn p { opacity: 0; } */

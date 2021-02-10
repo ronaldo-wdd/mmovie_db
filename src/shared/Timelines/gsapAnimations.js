@@ -5,34 +5,31 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 export const backdropGsap = element => {
-    const tl = gsap.timeline({
+    gsap.timeline({
         scrollTrigger: {
-            trigger: element,
+            trigger: element.querySelector('#Carousel'),
             scrub: true,
             start: 0,
-            end: 'bottom 10%'
-        }});
-    tl.to(element.querySelector('#after'), {
-        backgroundImage: 'linear-gradient(#1d1d1be3 10%, #1d1d1b)'
-    });
+            end: 'bottom top'
+        }})
+        .to(element.querySelector('#after'), {
+            backgroundImage: 'linear-gradient(#1d1d1be3 10%, #1d1d1b)',
+            duration: 0.5
+        })
+        .to(element.querySelector("#PlayBtn"), { 
+            opacity: 0, 
+            duration: 0.3 }, '-=0.5');
 }
 
-// 
+
 export const gsapAnim = selector => {
-    let 
-        // backdropEl = selector.querySelector('#backdrop'),
-        infoEl = selector.querySelector('#info'),
+    let infoEl = selector.querySelector('#info'),
         moviesListEl = selector.querySelector('#moviesList'),
         moviesRow = moviesListEl.querySelector('.moviesRow'),
         moviesListTw = gsap.to(moviesRow, { paused: true }),
         infoTw = gsap.to(infoEl, { paused: true }),
         xMax = moviesRow.scrollWidth - moviesRow.clientWidth * 1.05,
         startPin = 'bottom bottom-=15px',
-        // backdropST = ScrollTrigger.create({
-        //     id: 'bp',
-        //     scrub: true,
-        //     start: 0,
-        //     end: 'bottom 10%' }),
         infoST1 = ScrollTrigger.create({
             id: 'info_pin',
             trigger: moviesListEl,
@@ -75,7 +72,7 @@ export const gsapAnim = selector => {
             trigger: moviesListEl,
             pin: moviesListEl,
             start: 'bottom bottom-=15px',
-            end: xMax,
+            end: () => xMax,
             onUpdate: self => {
                 moviesListTw.vars.x = self.progress.toFixed(3) * -xMax;
                 moviesListTw.invalidate().restart(); }

@@ -1,0 +1,52 @@
+.PlayBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    height: fit-content;
+}
+
+.PlayBtn svg {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 10px;
+}
+.PlayBtn p { 
+    color: #FFCC66;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(-10px); 
+    transition: all .3s;
+    text-shadow: 1px 0px #666; }
+.PlayBtn:hover p, .PlayBtn:active p, .Show { opacity: 1; transform: translateY(0) }
+
+/* svg */
+.Cls1, .Cls6{ fill:none; }
+.Cls2 { clip-path: url(#clip-path);}
+.Cls3 { fill: #FFCC66; opacity: 0.3; isolation: isolate; }
+.Cls4 { fill: #FFCC66; opacity: 0.5; transform: rotate(-7deg); transition: all .3s; }
+.Cls5 { fill: #FFCC66; transition: all .3s; }
+.Cls6 { stroke: #666; stroke-miterlimit: 10; }
+
+.PlayBtn:hover .Cls4, .PlayBtn:hover .Cls5 { 
+    width: 223px !important;
+}
+
+.Loading p { opacity: 1; transform: none; }
+.Loading .Cls4 { animation: animation-c4 1.2s infinite cubic-bezier(0, 0, 1, 1); }
+.Loading .Cls5 { animation: animation-c5 1.2s infinite cubic-bezier(0, 0, 1, 1); }
+
+@keyframes animation-c4 {
+    0% { width: 130px; opacity: 0.5; }
+    33% { width: 223px; opacity: 0.5; }
+    66% { width: 223px; opacity: 0; }
+    66.1% { width: 0px; opacity: 0.5; }
+    100% { width: 130px; opacity: 0.5; }
+}
+@keyframes animation-c5 {
+    0% { width: 67px; opacity: 1; }
+    33% { width: 223px; opacity: 1; }
+    66% { width: 223px; opacity: 0; }
+    66.1% { width: 0px; opacity: 1; }
+    100% { width: 67px; opacity: 1; }
+}

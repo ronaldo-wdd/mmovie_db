@@ -35,3 +35,10 @@ export const update_scroll_position = position => {
         position: position
     }
 }
+
+export const show_modal = show => {
+    return {
+        type: actionTypes.SHOW_MODAL,
+        show: show
+    }
+}

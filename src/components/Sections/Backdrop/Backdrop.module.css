@@ -52,6 +52,22 @@
     background-image: linear-gradient(#1d1d1b00 60%, #1d1d1b);
 }
 
+.PlayTrailer {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    height: 73vh;
+    z-index: 1;
+}
+.PlayTrailer .Svg {
+    cursor: pointer;
+    pointer-events: all;
+    transform: translateY(31vh);
+}
+
 
 @media(max-width: 1200px) {
     .Carousel > div img { height: 70vh; }    
@@ -93,6 +109,12 @@
     .NextBackdrop img {
         transform: translateY(-74%) !important;
     }
+
+    .PlayTrailer .Svg { transform: translateY(23vh); }
+}
+
+@media(max-width: 576px) { 
+    .Blur { filter: blur(4px); transition: all .3s 1s;}
 }
 
 @media (min-width: 1400px) {

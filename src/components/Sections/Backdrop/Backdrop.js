@@ -3,21 +3,26 @@ import Col from 'react-bootstrap/Col';
 import { connect } from 'react-redux';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
-
 import classes from './Backdrop.module.css';
+
 import defaultBackdropPath from '../../../assents/images/defaultBackdrop.jpg';
 import { backdropGsap } from '../../../shared/Timelines/gsapAnimations';
+import PlayBtn from "../../UI/svg/PlayBtn";
+import Modal from '../../UI/Modal/Modal';
+import * as actions from '../../../store/actions';
 
 
 class Backdrop extends Component {
     constructor (props) {
         super(props);
-        this.afterRef = React.createRef();
+        this.bdRef = React.createRef();
     }
     
     state = {
         mainMovies: [],
-        loading: true
+        loading: true,
+        openModal: false,
+        loadingTrailer: false
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -38,18 +43,35 @@ class Backdrop extends Component {
             this.setState({mainMovies: mainMovies, loading: false});
         }
 
-        this.afterRef.current != null && backdropGsap(this.afterRef.current);
+        this.bdRef.current != null && backdropGsap(this.bdRef.current);
+    }
+
+    onPlayTrailer () {
+        this.setState({loadingTrailer: true});
+        const id = this.props.movies[this.props.activeMovie].id;
+
+        !this.props.video || this.props.video.id !== id
+            ? this.props.onFetchMovieTrailer(id)
+            : this.toggleModal(true); 
+    }
+
+    toggleModal (show) {
+        this.props.onShowModal(show);
+        this.setState({loadingTrailer: false});
     }
     
     render () {
-        const displayedMovies = [],
+        let displayedMovies = [],
             backdropsConfig = [
                 {md: '10', class: classes.PrevBackdrop},
                 {md: '10', class: classes.Backdrop},
                 {md: '5', class: classes.NextBackdrop},
                 {md: '4', class: classes.FakeBackdrop},
             ],
-            movies = this.state.mainMovies;
+            movies = this.state.mainMovies,
+            carouselClasses = [classes.Carousel];
+
+        this.props.showModal && carouselClasses.push(classes.Blur);
 
         if (!this.state.loading) { 
             for (let i=0; i<4; i++) {
@@ -70,15 +92,28 @@ class Backdrop extends Component {
                 );
             }
         }
-        
+
         return (
             !this.state.loading &&
 
-            <div className={classes.Carousel} ref={this.afterRef} >
-                <TransitionGroup component={null}>
-                    {displayedMovies}
-                </TransitionGroup>
-                <div id='after' className={classes.After} />
+            <div ref={this.bdRef}>
+                <div id='Carousel' className={carouselClasses.join(' ')} >
+                    <TransitionGroup component={null}>
+                        {displayedMovies}
+                    </TransitionGroup>
+                    <div id='after' className={classes.After} />
+                </div>
+
+                <Col md="8" className={classes.PlayTrailer}>
+                    <PlayBtn className={classes.Svg}
+                        error={this.props.videoError}
+                        loading={this.state.loadingTrailer}
+                        click = { () => this.onPlayTrailer() } />
+                </Col>
+
+                {this.props.showModal && 
+                    <Modal id={this.props.video.results[0].key}
+                        click={ ()=> this.toggleModal(false)} />}
             </div>
         );
     }
@@ -88,8 +123,18 @@ class Backdrop extends Component {
 const mapStateToProps = state => {
     return {
         activeMovie: state.movies.activeMovie,
-        movies: state.movies.movies
+        movies: state.movies.movies,
+        video: state.movies.video,
+        videoError: state.movies.videoError,
+        showModal: state.navigation.showModal
     }
 }
 
-export default connect(mapStateToProps)(Backdrop);
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchMovieTrailer: id => dispatch(actions.fetch_movie_trailer(id)),
+        onShowModal: show => dispatch(actions.show_modal(show))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Backdrop);

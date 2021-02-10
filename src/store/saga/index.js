@@ -5,7 +5,8 @@ import {
     setActiveMovieSaga,
     fetchMoviesGenreSaga,
     fetchMovieCastSaga,
-    fetchMoreMoviesSaga
+    fetchMoreMoviesSaga,
+    fetchMovieTrailer
 } from './movies';
 
 
@@ -16,4 +17,5 @@ export function* watchMovies () {
     yield takeLeading(actionTypes.SET_ACTIVE_FILTER, fetchMoviesSaga);
     yield takeLeading(actionTypes.ACTIVE_MOVIE, setActiveMovieSaga);
     yield takeLeading(actionTypes.FETCH_MOVIES_CAST, fetchMovieCastSaga);
+    yield takeLeading(actionTypes.FETCH_MOVIE_TRAILER, fetchMovieTrailer);
 }

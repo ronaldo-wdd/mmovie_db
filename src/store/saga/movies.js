@@ -72,6 +72,22 @@ export function* fetchMovieCastSaga(action) {
 }
 
 
+export function* fetchMovieTrailer(action) {
+    try {
+        const response = yield axios.get(`/movie/${action.id}/videos`),
+            video = response.data;
+
+            if (video.results.length > 0) {
+                yield put(actions.fetch_movie_trailer_success(video));
+                yield put(actions.show_modal(true));
+            } else throw 'Trailer not found :)';
+    } catch (error) {
+        yield put(actions.fetch_movie_trailer_failed());
+        console.log("fetching movie trailer failed", error);
+    }
+}
+
+
 export function* setActiveMovieSaga(action) {
     let moviesResults = yield select(selectors.moviesResults);
 

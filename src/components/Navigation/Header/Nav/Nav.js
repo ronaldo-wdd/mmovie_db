@@ -1,44 +1,42 @@
 import React from 'react';
 import classes from './Nav.module.css';
 
-import Item from './Item/Item'
+import Item from './Item/Item';
 import srcIcon from '../../../../assents/images/icons/search.png';
 
 const Nav = (props) => {
-    const navClasses = [classes.Nav];
+    const navClasses = [classes.Nav],
+        isActive = filter => props.activeFilter === filter && true;
+            
     !props.showMobileNav && navClasses.push(classes.Hidden);
-
+    
     return ( 
-        <nav className={navClasses.join(' ')}>
-            <div className={classes.Ul} onClick={()=> props.clicked()}>
-                <div className={classes.Filters}>
-                    <Item 
-                        link="/"
-                        active={props.activeFilter === 'popular'}
-                        clicked = {() => props.handleNavLinksClick('popular')}
-                        showMobileNav={props.showMobileNav} >
-                        <p>Popular</p>
-                        <div className={classes.Span} /></Item>
-                    <Item 
-                        link="/"
-                        active={props.activeFilter === 'now_playing'}
-                        clicked = {() => props.handleNavLinksClick('now_playing')}
-                        showMobileNav={props.showMobileNav} >
-                        <p>In theatres</p>
-                        <div className={classes.Span} /></Item>
-                    <Item 
-                        link="/"
-                        active={props.activeFilter === 'upcoming'} 
-                        clicked = {() => props.handleNavLinksClick('upcoming')}
-                        showMobileNav={props.showMobileNav} >
-                        <p>Up Coming</p>
-                        <div className={classes.Span} /></Item>
-                </div>
-                <Item 
-                    link="/search"
+        <nav className={navClasses.join(' ')} onClick={()=> props.clicked()}>
+            <div className={classes.Close} onClick={()=> props.clicked()} />
+            <div className={classes.Items}>
+                <Item active={isActive('popular')}
+                    link="/movies/popular"
+                    clicked = {() => props.handleNavLinksClick('popular')}
+                    showMobileNav={props.showMobileNav} >
+                    Popular</Item>
+                <Item active={isActive('now_playing')}
+                    link="/movies/in-theatres"
+                    clicked = {() => props.handleNavLinksClick('now_playing')}
                     showMobileNav={props.showMobileNav}>
-                    <p>Search</p>
-                    <img src={srcIcon} alt="" /></Item>
+                    In theatres</Item>
+                <Item active={isActive('upcoming')} 
+                    link="/movies/upcoming"
+                    clicked = {() => props.handleNavLinksClick('upcoming')}
+                    showMobileNav={props.showMobileNav}>
+                    Up Coming</Item>
+                <Item link="/search"
+                    showMobileNav={props.showMobileNav}
+                    search={true}>
+                    Search</Item>
+            </div>
+            <div className={classes.Btn}>
+                <div/><div/><div/>
+                <div><img src={srcIcon} alt=""/></div>
             </div>
         </nav>
     );

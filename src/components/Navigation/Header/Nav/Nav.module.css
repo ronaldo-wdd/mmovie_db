@@ -1,39 +1,64 @@
-.Nav { height: 100%;  }
-
-.Ul {
+.Nav { 
+    display: flex;
     position: relative;
-    height: 40px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .3s;
+    z-index: 99;
 }
-.Ul p { transition: all .3s; }
 
-.Span {
+.Btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    pointer-events: none;
+    height: 160px;
+    transition: all .3s;
+}
+
+.Btn > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 23px;
+    height: 40px;
+    transition: all .3s;
+}
+
+.Btn > div::after {
+    content: "";
+    position: relative;
     width: 22px;
     height: 2px;
     background-color: #FFCC66;
 }
+.Btn > div:last-child::after { display: none; }
 
-
-/* nav mobile hidden */
-@media(max-width: 768px) {
-    .Filters { transition: all .3s; }
-    .Nav .Filters > div { height: 40px; transition: all .3s; }
-
-    .Nav .Ul { background: #000; }
-    .Nav.Hidden .Filters { transform: translateY(12px); }
-    .Nav.Hidden .Filters > div { height: 5px; }
-    .Nav.Hidden .Ul > div:last-child { height: 0; opacity: 0; }
-    .Nav.Hidden .Filters > div:first-child p { transform: translateY(5px); }
-    .Nav.Hidden .Filters > div:last-child p { transform: translateY(-5px); }
+.Btn img {
+    height: 22px;
+    width: auto;
+    transition: all .3s;
 }
 
+.Nav.Hidden > div { pointer-events: none; }
+.Nav.Hidden .Btn { height: 40px; }
+.Nav.Hidden .Btn > div { height: 5px; }
+.Nav.Hidden .Btn > div:last-child { height: 0; }
+.Nav.Hidden .Btn img { opacity: 0; }
 
-@media(min-width: 768px) {
-    .Ul { display: flex; }
-    .Filters { display: flex; }
-    .Ul > div:last-child p {
-        width: 0;
-        opacity: 0;
-        margin-right: 23px; 
-    }
-    .Ul > div:last-child:hover p { width: 62px; opacity: 1; }
+.Close {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: all;
+    cursor: pointer;
+}
+.Nav.Hidden .Close {
+    display: none;
 }

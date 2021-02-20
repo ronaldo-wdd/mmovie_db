@@ -19,6 +19,11 @@ const Buttons = props => {
                 onClick={props.click} >
                 <p>Show All</p>
             </div> );
+        case "filter": return (
+            <div className={[classes.FilterBtn, props.className].join(' ')}
+                onClick={props.click} >
+                <p>{props.children}</p>
+            </div> );
         default: return (
             <div className={[classes.Button, props.className].join(' ')}
                 onClick={props.click} >

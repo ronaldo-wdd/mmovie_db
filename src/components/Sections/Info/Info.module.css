@@ -3,7 +3,6 @@
     display: flex;
     height: 73vh;
     min-height: 73vh;
-    /* width: 100%; */
     padding-top: 15px;
     top: 0;
     left: 0;
@@ -36,15 +35,12 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
 }
-/* .Main h1 span { 
-    font-size: 2rem; 
-    padding-left: 15px;
-} */
 
 .Main ul {
     display: flex;
     padding: 0;
     margin-bottom: 20px;
+    width: fit-content;
 }
 .Main li {
     list-style: none;
@@ -55,6 +51,7 @@
     background-color: #1d1d1b4d;
     white-space: nowrap;
 }
+.Main li:last-child { margin-right: 0; }
 
 .Stars {
     display: flex;
@@ -104,6 +101,4 @@
     .Main h1 { -webkit-line-clamp: 3; }
     .Main ul { overflow: visible; }
     .NextBtn { bottom: 25px }
-    /* .NextBtn { top: 56vh; bottom: auto; }
-    .NextBtn p { opacity: 0; } */
 }

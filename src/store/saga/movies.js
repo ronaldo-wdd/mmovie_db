@@ -8,11 +8,17 @@ import * as selectors from "./selectors";
 export function* fetchMoviesSaga() {
     yield put(actions.loaded(false));
 
-    let moviesFilter = yield select(selectors.activeFilter);
-
     try {
-        const response = yield axios.get(`/movie/${moviesFilter}`);
-        const fetchedMovies = response.data;
+        const moviesFilter = yield select(selectors.activeFilter),
+            params = yield select(selectors.params),
+            response = params.year || params.genre
+                ? yield axios.get('/discover/movie', {
+                    params: {
+                        year: params.year, 
+                        with_genres: params.genre
+                    }})
+                : yield axios.get(`/movie/${moviesFilter}`),
+            fetchedMovies = response.data;
 
         yield put(actions.fetch_movies_success(fetchedMovies));
         yield put(actions.loaded(true));
@@ -31,9 +37,16 @@ export function* fetchMoreMoviesSaga() {
     if (totalPages - page <= 0) return;
         
     try {
-        const response = yield axios.get(`/movie/${moviesFilter}`, {params: {page: page+1}});
-        // const response = yield axios.get(`/movie/${moviesFilter}`);
-        const fetchedMovies = response.data;
+        const params = yield select(selectors.params),
+            response = params.year || params.genre
+                ? yield axios.get('/discover/movie', {
+                    params: {
+                        year: params.year, 
+                        with_genres: params.genre,
+                        page: page + 1
+                    }})
+                : yield axios.get(`/movie/${moviesFilter}`, {params: {page: page + 1}}),
+            fetchedMovies = response.data;
 
         yield put(actions.fetch_more_movies_success(fetchedMovies));
     } catch (error) {
@@ -62,6 +75,8 @@ export function* fetchMoviesGenreSaga() {
 
 export function* fetchMovieCastSaga(action) {
     try {
+        yield put(actions.loading_cast(true))
+        
         const response = yield axios.get(`/movie/${action.id}/credits`),
             cast = response.data.cast;
 
@@ -77,13 +92,14 @@ export function* fetchMovieTrailer(action) {
         const response = yield axios.get(`/movie/${action.id}/videos`),
             video = response.data;
 
+            console.log(video);
+            
             if (video.results.length > 0) {
                 yield put(actions.fetch_movie_trailer_success(video));
                 yield put(actions.show_modal(true));
             } else throw 'Trailer not found :)';
     } catch (error) {
         yield put(actions.fetch_movie_trailer_failed());
-        console.log("fetching movie trailer failed", error);
     }
 }
 

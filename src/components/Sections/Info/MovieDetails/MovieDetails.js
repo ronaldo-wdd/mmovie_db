@@ -9,7 +9,10 @@ const MovieDetails = props => {
         <div className={classes.MovieDetails}>
             <h2>Overview</h2>
             <p>{props.movie.overview}</p>
-            <CastList />
+            <CastList
+                onTouchStart = {props.onTouchStart}
+                handleScroll = {props.handleScroll}
+                deltaX = {props.deltaX} />
         </div>
     );
 }

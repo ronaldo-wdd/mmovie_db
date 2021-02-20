@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Aux from '../../../../../hoc/Auxilliary/Auxilliary';
 import defaultProfilePath from '../../../../../assents/images/profile.jpg';
+import { touchStart } from '../../../../../shared/utility';
 
 
 const CastList = props => {
@@ -11,10 +12,9 @@ const CastList = props => {
     
     const castList = props.cast.map((cast, key) => {
         return (
-            <div className={classes.Cast} key={key}>
-                <img 
-                    src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`} 
-                    alt={cast.name}
+            <div className={classes.Cast} key={key} >
+                <img alt={cast.name}
+                    src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`}
                     onError={ e => e.target.src=defaultProfilePath } />
                 <p>{cast.name}</p>
             </div> )
@@ -23,11 +23,14 @@ const CastList = props => {
     return (
         <Aux>
             <h2>Top Cast</h2>
-            <div className={classes.CastList}>
+            <div className={classes.CastList} id="castList"
+                onWheel = { event => props.handleScroll(event, true) }
+                onTouchStart = { event => props.onTouchStart(touchStart(event)) }
+                onTouchMove = { event => props.handleScroll(event, true) }
+                style={{transform: `translateX(-${props.deltaX}px)`}} >
                 {castList}
             </div>
         </Aux>
-        
     );
 }
 

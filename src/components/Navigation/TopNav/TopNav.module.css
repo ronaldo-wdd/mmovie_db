@@ -1,0 +1,92 @@
+.Navigation {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: calc(100vw - 160px);
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 9;
+    pointer-events: none;
+}
+
+.Filters {
+    display: flex;
+    align-items: flex-end;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    pointer-events: auto;
+}
+
+.FiltersList {
+    max-width: 600px;
+    height: 100%;
+    margin: 0 10px -4px 0;
+    overflow: hidden;
+}
+
+.Filters ul {
+    display: flex;
+    align-items: flex-end;
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+}
+
+.Filters ul li {
+    position: relative;
+    list-style: none;
+    border: 1px solid #707070;
+    margin-right: 6px;
+    padding: 0 6px;
+    font-size: .85rem;
+    background-color: #1d1d1b4d;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.Filters ul li:hover { background-color: #000; }
+
+.Active::after {
+    content: 'X';
+    position: absolute;
+    top: -1px;
+    right: 0;
+    height: 100%;
+    width: 0px;
+    padding: 0 6px;
+    border: 1px solid #707070;
+    width: fit-content;
+    overflow: hidden;
+    box-sizing: content-box;
+    transform: translateX(0);
+    background-color: #000;
+    transition: all .3s;
+    z-index: -1;
+}
+
+.Filters ul .Active { background-color: #000; transition: all .3s; }
+.Filters ul .Active:hover { background-color: #000; margin-right: 26px; }
+.Filters ul .Active:hover::after { transform: translateX(100%); }
+
+
+.Btn {
+    position: relative;
+    width: fit-content;
+    pointer-events: auto;
+}
+
+
+@media(max-width: 991px){ 
+    .Filters { max-width: 100%; }
+    .Hidden { opacity: 0; transition: all .3s; }
+}
+
+@media(max-width: 768px) {
+    /* .FiltersList { overflow-x: scroll; } */
+    .Filters ul li:hover { 
+        background-color: #1d1d1b4d;
+        border: 1px solid #505050; }
+    .Navigation { width: calc(100vw - 40px); }
+}

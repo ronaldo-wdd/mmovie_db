@@ -1,24 +1,27 @@
-.Movie { 
-    padding: 0 20px 40px; 
+.Col {
+    padding-bottom: 30px;
     cursor: pointer;
+}
+
+.Movie {
+    position: relative;
+    padding-top: 150%;
+    overflow: hidden;
+}
+
+.Movie img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .Active img {
     border: 3px solid #FFCC66;
 }
 
-.Movie img {
-    width: 100%;
-    height: auto;
-}
-
-
-@media(max-width: 1300px) {
-    .Movie { padding: 0 15px 30px; }
-}
 
 @media(max-width: 992px) {
-    .Movie {
-        padding: 0 12px 24px; 
-        width: 90%;
-    }
+    .Col { padding: 0 10px 20px 10px; }
 }

@@ -21,21 +21,17 @@ class Header extends Component {
             && this.props.onSetFilter(filter);
     }
 
-    handleNavClick = () => { 
-        this.props.isMobile
-            && this.setState({showMobileNav: !this.state.showMobileNav});
-    }
-    
     render () {
         return (
             <header className={classes.Header}>
                 <Container fluid='xxl' className={classes.Container}>
                     <Logo />
                     <Nav 
+                        pathname = {this.props.pathname}
                         activeFilter={this.props.activeFilter}
                         showMobileNav={this.state.showMobileNav}
                         handleNavLinksClick = {filter => this.handleNavLinksClick(filter)}
-                        clicked = {() => this.handleNavClick()} />
+                        clicked = {() => this.setState({showMobileNav: !this.state.showMobileNav})} />
                 </Container>
             </header>
         );

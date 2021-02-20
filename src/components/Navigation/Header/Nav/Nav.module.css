@@ -47,7 +47,7 @@
 .Nav.Hidden .Btn { height: 40px; }
 .Nav.Hidden .Btn > div { height: 5px; }
 .Nav.Hidden .Btn > div:last-child { height: 0; }
-.Nav.Hidden .Btn img { opacity: 0; }
+.Nav.Hidden .Btn img { transform: translateY(calc(100% + 15px)); }
 
 .Close {
     position: fixed;

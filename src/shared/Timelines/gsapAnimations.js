@@ -25,10 +25,10 @@ export const backdropGsap = element => {
 export const gsapAnim = selector => {
     let infoEl = selector.querySelector('#info'),
         moviesListEl = selector.querySelector('#moviesList'),
-        moviesRow = moviesListEl.querySelector('.moviesRow'),
+        moviesRow = moviesListEl.querySelector('#moviesRow'),
         moviesListTw = gsap.to(moviesRow, { paused: true }),
         infoTw = gsap.to(infoEl, { paused: true }),
-        xMax = moviesRow.scrollWidth - moviesRow.clientWidth * 1.05,
+        xMax = moviesRow.scrollWidth - moviesRow.clientWidth * 1.05 - 20,
         startPin = 'bottom bottom-=15px',
         infoST1 = ScrollTrigger.create({
             id: 'info_pin',

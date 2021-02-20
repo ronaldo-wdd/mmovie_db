@@ -2,10 +2,12 @@
     display: flex;
     overflow-x: visible;
     margin-bottom: 30px;
-
+    width: fit-content;
 }
 
 .Cast { margin-right: 20px; }
+.Cast:last-child { margin-right: 0; }
+
 .Cast img {
     width: 100px;
     height: 100px;

@@ -8,8 +8,13 @@ const initialState = {
     activeMovie: 0,
     activeMovieCast: [],
     activeFilter: 'popular',
+    params: {
+        genre: undefined,
+        year: undefined
+    },
     video: null,
-    videoError: false
+    videoError: false,
+    castLoaded: false
 }
 
 
@@ -49,7 +54,8 @@ const fetch_more_movies_success = (state, movies) => {
 const fetch_movie_cast_success = (state, cast) => {
     return {
         ...state,
-        activeMovieCast: cast
+        activeMovieCast: cast,
+        castLoaded: true
     }
 }
 
@@ -63,7 +69,21 @@ const set_active_movie = (state, index) => {
 const set_active_filter = (state, filter) => {
     return {
         ...state,
-        activeFilter: filter
+        activeFilter: filter,
+        params: {
+            genre: undefined,
+            year: undefined
+        }
+    }
+}
+
+const set_params = (state, param) => {
+    return {
+        ...state,
+        params: {
+            ...state.params,
+            ...param
+        }
     }
 }
 
@@ -81,6 +101,13 @@ const fetch_movie_trailer_failed = state => {
     }
 }
 
+const loading_cast = (state, loading) => {
+    return {
+        ...state,
+        castLoaded: !loading
+    }
+}
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -89,10 +116,12 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_MOVIES_FAILED: return fetch_movies_failed(state);
         case actionTypes.SET_ACTIVE_MOVIE: return set_active_movie(state, action.index);
         case actionTypes.SET_ACTIVE_FILTER: return set_active_filter(state, action.filter);
+        case actionTypes.SET_PARAMS: return set_params(state, action.param);
         case actionTypes.FETCH_MOVIES_GENRE_SUCCESS: return fetch_movies_genre_success(state, action.genreList);
         case actionTypes.FETCH_MOVIES_CAST_SUCCESS: return fetch_movie_cast_success(state, action.cast);
         case actionTypes.FETCH_MOVIE_TRAILER_SUCCESS: return fetch_movie_trailer_success(state, action.video);
         case actionTypes.FETCH_MOVIE_TRAILER_FAILED: return fetch_movie_trailer_failed(state);
+        case actionTypes.LOADING_CAST: return loading_cast(state, action.loading);
         default: return state
     }
 }

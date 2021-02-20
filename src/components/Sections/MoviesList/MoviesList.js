@@ -15,67 +15,50 @@ class MoviesList extends Component {
         super(props);
         this.rowRef = React.createRef();
         this.containerRef = React.createRef();
+        this.onScroll = this.fetchMoreMovies.bind(this);
     }
 
-    state = { gsapAnim: null, movies: [] }
+    state = { gsapAnim: null }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return (this.props !== nextProps || JSON.stringify(this.state) !== JSON.stringify(nextState)) 
-            ? true : false;
-    }
-    
     componentDidMount () {
-        let movies = [];
-
-        setTimeout(() => {
-            this.props.history.location.pathname === '/movies'
-                ? movies = this.props.movies
-                : movies = this.props.movies.slice(0, 10);
-            this.setState({movies: movies});
-        }, 300);
-    }
-
-    componentWillUnmount() {
-        const position = - (this.containerRef.current.getBoundingClientRect().top - 100); 
-        this.props.onUpdateScrollP(position);
+        window.addEventListener('scroll', this.onScroll);
     }
     
     componentDidUpdate () {
-        let movies = [];
-
-        this.props.history.location.pathname === '/movies'
-            ? movies = this.props.movies
-            : movies = this.props.movies.slice(0, 10);
-
-        this.setState({movies: movies});
-
         if (this.props.scrollTrigger == null) return; //
-        this.props.showAll || this.props.showMoreDetails
+        !this.props.limit || this.props.showMoreDetails
             ? this.props.scrollTrigger.disable()
             : this.props.scrollTrigger.enable();
     }
 
-    handleShowAll (opened) {
-        opened 
-            ? this.props.history.goBack()
-            : this.props.history.push("/movies");
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
+        const position = - (this.containerRef.current.getBoundingClientRect().top - 100); 
+        this.props.onUpdateScrollP(position);
     }
 
     handleSelectedMovie (id, movieId) {
         this.props.onSetActiveMovie(id);
 
-        this.props.showAll
-            ? this.props.history.push("/movie/" + movieId)
-            : animateScroll.scrollToTop({ smooth: true }); 
+        this.props.limit
+            ? animateScroll.scrollToTop({ smooth: true })
+            : this.props.history.push("/movie/" + movieId);
     }
     
+    fetchMoreMovies() {
+        const limit = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
+            document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight ) - window.innerHeight;
+
+        (!this.props.limit && limit - window.scrollY < 100) &&
+            this.props.onShowMoreMovies();
+    }
     
     render () {
-        let movies = this.state.movies.map((movie, key) => {
+        let movies = this.props.movies.map((movie, key) => {
             return <Movie key={key} movie={movie}
                 active={this.props.activeMovie === key ? true : false}
                 click={ () => this.handleSelectedMovie(key, movie.id)} /> }),
-            rowStyle = !this.props.showAll
+            rowStyle = this.props.limit
                 && {flexWrap: 'nowrap', width: '95%', transform: 'translate(0)'},
             moviesListClasses = [classes.MoviesList];
 
@@ -86,18 +69,15 @@ class MoviesList extends Component {
                 id="moviesList"
                 ref={this.containerRef}
                 className={moviesListClasses.join(' ')} >
-                <Row className="moviesRow" ref={this.rowRef}
+                <Row className={classes.MoviesRow} id="moviesRow" ref={this.rowRef}
                     style={{...rowStyle}} >
                     {movies}
                 </Row>
 
-                {this.props.showAll  
-                    ? <Buttons type="goBack" 
-                        className={classes.BackBtn} 
-                        click={() => this.handleShowAll(true)} />
-                    : <Buttons type="showAll" 
+                {this.props.limit &&
+                    <Buttons type="showAll" 
                         className={classes.AllBtn} 
-                        click={() => this.handleShowAll(false)} />}
+                        click={() => this.props.history.push("/movies/popular")} />}
             </Container>
         );
     }
@@ -107,16 +87,14 @@ class MoviesList extends Component {
 const mapStateToProps = state => {
     return {
         activeMovie: state.movies.activeMovie,
-        showAll: state.navigation.showAllMovies,
-        movies: state.movies.movies,
-        showMoreDetails: state.navigation.showMovieDetails,
-        isMobile: state.navigation.mobile,
+        showMoreDetails: state.navigation.showMovieDetails
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onSetActiveMovie: id => dispatch(actions.set_active_movie(id)),
+        onShowMoreMovies: () => dispatch(actions.fetch_more_movies()),
         onShowAllMovies: show => dispatch(actions.show_all_movies(show)),
         onUpdateScrollP: position => dispatch(actions.update_scroll_position(position))
     }

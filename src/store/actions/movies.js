@@ -85,6 +85,15 @@ export const set_active_filter = filter => {
     }
 }
 
+
+export const set_params = param => {
+    return {
+        type: actionTypes.SET_PARAMS,
+        param: param
+    }
+}
+
+
 export const fetch_movie_trailer = id => {
     return {
         type: actionTypes.FETCH_MOVIE_TRAILER,
@@ -100,5 +109,12 @@ export const fetch_movie_trailer_success = video => {
 export const fetch_movie_trailer_failed = () => {
     return {
         type: actionTypes.FETCH_MOVIE_TRAILER_FAILED
+    }
+}
+
+export const loading_cast = loading => {
+    return {
+        type: actionTypes.LOADING_CAST,
+        loading: loading
     }
 }

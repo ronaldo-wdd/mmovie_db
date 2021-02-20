@@ -13,7 +13,9 @@ export {
     fetch_more_movies_success,
     fetch_movie_trailer,
     fetch_movie_trailer_success,
-    fetch_movie_trailer_failed
+    fetch_movie_trailer_failed,
+    set_params,
+    loading_cast
 } from './movies';
 
 export {

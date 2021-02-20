@@ -1,10 +1,10 @@
 .MoviesList {
     position: relative;
     padding-bottom: 20px;
-    /* margin-bottom: 15px; */
     transform: translateY(-12px);
     max-width: calc(100vw - 160px);
     height: auto;
+    z-index: 1;
 }
 .Hidden {
     display: none;
@@ -20,11 +20,6 @@
     position: absolute;
     right: 0;
     bottom: 0;
-}
-.BackBtn {
-    position: absolute;
-    left: 0;
-    top: -56px;
 }
 
 

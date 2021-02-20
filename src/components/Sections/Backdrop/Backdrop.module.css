@@ -68,6 +68,11 @@
     transform: translateY(31vh);
 }
 
+.Loading .NextBackdrop, 
+.Loading .FakeBackdrop {
+    max-width: 100%;
+    transform: translate(0) skew(0);
+}
 
 @media(max-width: 1200px) {
     .Carousel > div img { height: 70vh; }    

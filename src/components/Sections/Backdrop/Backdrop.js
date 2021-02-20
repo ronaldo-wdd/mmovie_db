@@ -22,9 +22,10 @@ class Backdrop extends Component {
         mainMovies: [],
         loading: true,
         openModal: false,
-        loadingTrailer: false
+        loadingTrailer: false,
+        gsapAnim: null
     }
-
+    
     shouldComponentUpdate(nextProps, nextState) {
         return (this.props !== nextProps || JSON.stringify(this.state) !== JSON.stringify(nextState)) 
             ? true : false;
@@ -32,18 +33,19 @@ class Backdrop extends Component {
 
     componentDidUpdate () {
         if (this.props.movies != null) {
-            const mainMovies = [...this.props.movies].slice(
+            let mainMovies = [...this.props.movies].slice(
                 this.props.activeMovie,
                 this.props.activeMovie + 3);
 
             mainMovies.unshift([...this.props.movies].slice(
                 this.props.activeMovie - 1
             )[0]);
-                
+
             this.setState({mainMovies: mainMovies, loading: false});
         }
 
-        this.bdRef.current != null && backdropGsap(this.bdRef.current);
+        this.bdRef.current && backdropGsap(this.bdRef.current);
+            // this.setState({gsapAnim: gsapAnim});
     }
 
     onPlayTrailer () {
@@ -71,6 +73,7 @@ class Backdrop extends Component {
             movies = this.state.mainMovies,
             carouselClasses = [classes.Carousel];
 
+        this.state.loading && carouselClasses.push(classes.Loading);
         this.props.showModal && carouselClasses.push(classes.Blur);
 
         if (!this.state.loading) { 
@@ -94,8 +97,6 @@ class Backdrop extends Component {
         }
 
         return (
-            !this.state.loading &&
-
             <div ref={this.bdRef}>
                 <div id='Carousel' className={carouselClasses.join(' ')} >
                     <TransitionGroup component={null}>

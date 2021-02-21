@@ -11,8 +11,6 @@ import AnimatedRoutes from './hoc/AnitamatedRoutes/AnimatedRoutes';
 
 
 class App extends Component {
-
-  // isMobile?
   changeMobile = () => {
     window.matchMedia('(max-width: 768px)').matches
       ? this.props.onChangeMobile(true)
@@ -24,14 +22,14 @@ class App extends Component {
     window.addEventListener('resize', this.changeMobile);
     this.props.onFetchMoviesGenre();
     this.props.onFetchMovies();
-    // return () => window.removeEventListener('resize', this.changeMobile);
   }
 
   
   render() {
     return (
       <Layout>
-        <Header isMobile={this.props.isMobile} />
+        <Header isMobile={this.props.isMobile}
+          history={this.props.history} />
         <Backdrop />
         <Route render={({location}) => {
           return (

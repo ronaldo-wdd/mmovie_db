@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
+import history from './hoc/history';
 
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
@@ -36,9 +37,9 @@ sagaMiddleware.run(watchMovies);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Router history={history} >
+        <App history={history} />
+      </Router>
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')

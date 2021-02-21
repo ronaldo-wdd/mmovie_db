@@ -4,7 +4,8 @@
     overflow: hidden;
     cursor: pointer;
     transition: all .3s;
-    z-index: 99;
+    z-index: 9;
+    pointer-events: all;
 }
 
 .Btn {
@@ -40,14 +41,20 @@
 .Btn img {
     height: 22px;
     width: auto;
-    transition: all .3s;
+    transition: transform .3s;
 }
 
+.Nav.Hidden { height: 40px; overflow: visible; }
 .Nav.Hidden > div { pointer-events: none; }
 .Nav.Hidden .Btn { height: 40px; }
 .Nav.Hidden .Btn > div { height: 5px; }
 .Nav.Hidden .Btn > div:last-child { height: 0; }
-.Nav.Hidden .Btn img { transform: translateY(calc(100% + 15px)); }
+.Nav.Hidden .Btn img { 
+    transform: translateY(calc(100% + 15px));
+    pointer-events: none;
+    opacity: 0; 
+}
+.Nav.Hidden .Btn.Active img { opacity: 1; }
 
 .Close {
     position: fixed;

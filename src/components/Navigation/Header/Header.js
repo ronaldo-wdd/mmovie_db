@@ -12,7 +12,7 @@ class Header extends Component {
     state = {
         showMobileNav: false,
     }
-
+    
     handleNavLinksClick = (filter) => {
         animateScroll.scrollToTop({ smooth: true });
         
@@ -26,9 +26,8 @@ class Header extends Component {
             <header className={classes.Header}>
                 <Container fluid='xxl' className={classes.Container}>
                     <Logo />
-                    <Nav 
-                        pathname = {this.props.pathname}
-                        activeFilter={this.props.activeFilter}
+                    <Nav activeFilter={this.props.activeFilter}
+                        pathname = {this.props.history.location.pathname}
                         showMobileNav={this.state.showMobileNav}
                         handleNavLinksClick = {filter => this.handleNavLinksClick(filter)}
                         clicked = {() => this.setState({showMobileNav: !this.state.showMobileNav})} />

@@ -12,7 +12,8 @@ import { scrollX, touchStart } from '../../../shared/utility';
 class TopNav extends Component {
     constructor(props) {
         super(props);
-        this.glRef = React.createRef()
+        this.glRef = React.createRef();
+        this.inputRef = React.createRef();
     }
     
     state = {
@@ -23,9 +24,17 @@ class TopNav extends Component {
         filterActive: false,
         deltaX: 0,
         maxDeltaX: 0,
-        touchstart: 0
+        touchstart: 0,
+        srcValue: ''
     }
 
+    componentDidMount() {
+        if (this.props.search && this.inputRef) {
+            this.inputRef.current.focus();
+            this.inputRef.current.select();
+        }
+    }
+    
     handleFiltersList() {
         setTimeout(() => {
             let el = this.glRef.current,
@@ -90,6 +99,16 @@ class TopNav extends Component {
         }, 300);
     }
 
+    handleInputChange(event) {
+        this.setState({ srcValue: event.target.value });
+    }
+
+    handleFormSubmit(event) {
+        event.preventDefault();
+        
+        console.log(this.state.srcValue);
+    }
+
     render () {
         let filters = !this.state.filterActive
             ? Object.values(this.props.params).map((value, index) => {
@@ -138,7 +157,17 @@ class TopNav extends Component {
                     </div>}
 
                 {this.props.search &&
-                    <div></div>}
+                    <form className={classes.Search} 
+                        onSubmit={this.handleFormSubmit.bind(this)}>
+                        <label>
+                            <input type="text" 
+                                ref={this.inputRef}
+                                required
+                                value={this.state.value}
+                                onChange={this.handleInputChange.bind(this)} />
+                        </label>
+                        <input type="submit" value="SEARCH" />
+                    </form>}
             </Container>
         )
     }

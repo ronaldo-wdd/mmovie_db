@@ -10,8 +10,8 @@ import Movie from '../../components/Pages/Movie/Movie';
 
 
 const AnimatedRoutes = props => {
-    const pathname = props.location.pathname, 
-        key = props.location.pathname;
+    const pathname = props.location.pathname.split('/')[1] || 'home', 
+        key = props.location.pathname.split('/')[1] || 'home';
     
     return ( 
         <TransitionGroup component={null} className="all">

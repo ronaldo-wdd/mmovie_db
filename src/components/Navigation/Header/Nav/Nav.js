@@ -6,9 +6,12 @@ import srcIcon from '../../../../assents/images/icons/search.png';
 
 const Nav = (props) => {
     const navClasses = [classes.Nav],
-        isActive = filter => props.activeFilter === filter && true;
+        btnClasses = [classes.Btn],
+        pathname = props.pathname,
+        isActive = filter => props.activeFilter === filter;
             
     !props.showMobileNav && navClasses.push(classes.Hidden);
+    pathname === '/search' && btnClasses.push(classes.Active);
     
     return ( 
         <nav className={navClasses.join(' ')} onClick={()=> props.clicked()}>
@@ -34,7 +37,7 @@ const Nav = (props) => {
                     search={true}>
                     Search</Item>
             </div>
-            <div className={classes.Btn}>
+            <div className={btnClasses.join(' ')}>
                 <div/><div/><div/>
                 <div><img src={srcIcon} alt=""/></div>
             </div>

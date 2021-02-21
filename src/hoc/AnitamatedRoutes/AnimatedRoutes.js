@@ -10,15 +10,18 @@ import Movie from '../../components/Pages/Movie/Movie';
 
 
 const AnimatedRoutes = props => {
+    const pathname = props.location.pathname, 
+        key = props.location.pathname;
+    
     return ( 
         <TransitionGroup component={null} className="all">
             <Transition
-                key = {props.key}
+                key = {key}
                 appear = {true}
-                onEnter = { ()=> console.log(props.location.pathname + ' has entered!!!')}
-                onExit = { ()=> console.log(props.location.pathname + ' has leaved!!!')}
+                onEnter = { ()=> console.log(pathname + ' has entered!!!')}
+                onExit = { ()=> console.log(pathname + ' has leaved!!!')}
                 timeout = {{enter: 350, exit: 350}} >
-                <Switch>
+                <Switch location={props.location}>
                     <Route path="/search" component={Search} />
                     <Route path="/movie/:id" component={Movie} />
                     <Route path="/movies/:id" component={Movies} />

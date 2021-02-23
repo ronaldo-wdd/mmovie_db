@@ -8,10 +8,10 @@ export const change_mobile = mobile => {
     }
 }
 
-export const loaded = loaded => {
+export const loaded = ld => {
     return {
         type: actionTypes.LOADED,
-        loaded: loaded
+        loaded: ld
     }
 }
 

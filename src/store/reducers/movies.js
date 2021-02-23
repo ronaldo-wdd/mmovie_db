@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     fetchedMovies: null,
     movies: [],
+    searchedMovies: [],
     genresList: null,
     error: false,
     activeMovie: 0,
@@ -10,11 +11,12 @@ const initialState = {
     activeFilter: 'popular',
     params: {
         genre: undefined,
-        year: undefined
+        year: undefined,
+        query: undefined
     },
     video: null,
     videoError: false,
-    castLoaded: false
+    castLoaded: false,
 }
 
 
@@ -72,7 +74,8 @@ const set_active_filter = (state, filter) => {
         activeFilter: filter,
         params: {
             genre: undefined,
-            year: undefined
+            year: undefined,
+            query: undefined
         }
     }
 }

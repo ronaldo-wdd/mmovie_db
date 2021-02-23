@@ -24,8 +24,7 @@ class TopNav extends Component {
         filterActive: false,
         deltaX: 0,
         maxDeltaX: 0,
-        touchstart: 0,
-        srcValue: ''
+        touchstart: 0
     }
 
     componentDidMount() {
@@ -87,11 +86,14 @@ class TopNav extends Component {
         if ( this.state.filter === 0 ) return;
 
         setTimeout(()=> {
-            let searchParams = new URLSearchParams({...this.props.params});
+            let params = new URLSearchParams({
+                genre: this.props.params.genre | '',
+                year: this.props.params.year | ''
+            });
             
-            this.props.history.push({
+            this.props.history.replace({
                 pathname: '/movies/popular',
-                search: searchParams.toString()
+                search: params.toString()
             });
 
             this.props.onFetchMovies();
@@ -99,20 +101,12 @@ class TopNav extends Component {
         }, 300);
     }
 
-    handleInputChange(event) {
-        this.setState({ srcValue: event.target.value });
-    }
-
-    handleFormSubmit(event) {
-        event.preventDefault();
-        
-        console.log(this.state.srcValue);
-    }
 
     render () {
         let filters = !this.state.filterActive
             ? Object.values(this.props.params).map((value, index) => {
-                return value === undefined ? <div key={index}/> : <li key={index} >
+                return value === undefined || index === 2
+                    ? <div key={index}/> : <li key={index} >
                         {index === 0 ? this.props.genres[value] : value}</li> 
                 })
             : this.state.filter === 0
@@ -158,13 +152,13 @@ class TopNav extends Component {
 
                 {this.props.search &&
                     <form className={classes.Search} 
-                        onSubmit={this.handleFormSubmit.bind(this)}>
+                        onSubmit={this.props.handleFormSubmit}>
                         <label>
                             <input type="text" 
                                 ref={this.inputRef}
                                 required
-                                value={this.state.value}
-                                onChange={this.handleInputChange.bind(this)} />
+                                value={this.props.params.query || ''}
+                                onChange={this.props.handleInputChange} />
                         </label>
                         <input type="submit" value="SEARCH" />
                     </form>}

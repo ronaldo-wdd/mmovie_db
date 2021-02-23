@@ -17,13 +17,15 @@ export function* fetchMoviesSaga() {
                         year: params.year, 
                         with_genres: params.genre
                     }})
-                : yield axios.get(`/movie/${moviesFilter}`),
+                : params.query
+                    ? yield axios.get('/search/movie', {params: {query: params.query}})
+                    : yield axios.get(`/movie/${moviesFilter}`),
             fetchedMovies = response.data;
-
+            
         yield put(actions.fetch_movies_success(fetchedMovies));
         yield put(actions.loaded(true));
-        
-    } catch (error) {
+    } 
+    catch (error) {
         yield put (actions.fetch_movies_failed());
     }
 }
@@ -32,24 +34,31 @@ export function* fetchMoviesSaga() {
 export function* fetchMoreMoviesSaga() {
     const totalPages = yield select(selectors.totalPages),
         page = yield select(selectors.page),
-        moviesFilter = yield select(selectors.activeFilter);
+        moviesFilter = yield select(selectors.activeFilter),
+        params = yield select(selectors.params);
 
     if (totalPages - page <= 0) return;
         
     try {
-        const params = yield select(selectors.params),
-            response = params.year || params.genre
-                ? yield axios.get('/discover/movie', {
+        const response = params.year || params.genre
+            ? yield axios.get('/discover/movie', {
+                params: {
+                    year: params.year, 
+                    with_genres: params.genre,
+                    page: page + 1
+                }})
+            : params.query
+                ? yield axios.get('/search/movie', {
                     params: {
-                        year: params.year, 
-                        with_genres: params.genre,
+                        query: params.query, 
                         page: page + 1
                     }})
                 : yield axios.get(`/movie/${moviesFilter}`, {params: {page: page + 1}}),
             fetchedMovies = response.data;
 
         yield put(actions.fetch_more_movies_success(fetchedMovies));
-    } catch (error) {
+    } 
+    catch (error) {
         console.log(error);
         yield put (actions.fetch_movies_failed());
     }

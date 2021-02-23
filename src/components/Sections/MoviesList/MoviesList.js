@@ -25,10 +25,11 @@ class MoviesList extends Component {
     }
     
     componentDidUpdate () {
-        if (this.props.scrollTrigger == null) return; //
-        !this.props.limit || this.props.showMoreDetails
-            ? this.props.scrollTrigger.disable()
-            : this.props.scrollTrigger.enable();
+        if (this.props.scrollTrigger) {
+            !this.props.limit || this.props.showMoreDetails
+                ? this.props.scrollTrigger.disable()
+                : this.props.scrollTrigger.enable();
+        }
     }
 
     componentWillUnmount() {

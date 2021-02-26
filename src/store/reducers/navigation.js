@@ -1,3 +1,4 @@
+import { curr_page } from '../actions';
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
@@ -6,7 +7,8 @@ const initialState = {
     showMovieDetails: false,
     showAllMovies: false,
     moviesListScrollPosition: 0,
-    showModal: false
+    showModal: false,
+    currPage: ''
 }
 
 
@@ -52,6 +54,13 @@ const showModal = (state, show) => {
     }
 }
 
+const currPage = (state, page) => {
+    return {
+        ...state,
+        currPage: page
+    }
+}
+
  
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -61,6 +70,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SHOW_ALL_MOVIES: return showAllMovies(state, action.show);
         case actionTypes.UPDATE_SCROLL_POSITION: return updateScrollPosition(state, action.position);
         case actionTypes.SHOW_MODAL: return showModal(state, action.show);
+        case actionTypes.CURR_PAGE: return currPage(state, action.page);
         default: return state;
     }
 }

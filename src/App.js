@@ -28,8 +28,7 @@ class App extends Component {
   render() {
     return (
       <Layout>
-        <Header isMobile={this.props.isMobile}
-          history={this.props.history} />
+        <Header isMobile={this.props.isMobile} />
         <Backdrop />
         <Route render={({location}) => {
           return (

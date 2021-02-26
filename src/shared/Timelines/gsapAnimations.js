@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 export const backdropGsap = element => {
-    gsap.timeline({
+    const tl = gsap.timeline({
         scrollTrigger: {
             trigger: element.querySelector('#Carousel'),
             scrub: true,
@@ -19,6 +19,8 @@ export const backdropGsap = element => {
         .to(element.querySelector("#PlayBtn"), { 
             opacity: 0, 
             duration: 0.3 }, '-=0.5');
+
+    return tl.scrollTrigger;
 }
 
 

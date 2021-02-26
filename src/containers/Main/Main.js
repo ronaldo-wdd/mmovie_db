@@ -53,7 +53,6 @@ const mapStateToProps = state => {
         isMobile: state.navigation.mobile,
         loaded: state.navigation.loaded,
         showAll: state.navigation.showAllMovies,
-        scrollPosition: state.navigation.moviesListScrollPosition,
         movies: state.movies.movies,
         activeMovie: state.movies.activeMovie
     }
@@ -61,8 +60,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onShowAllMovies: show => dispatch(actions.show_all_movies(show)),
-        onUpdateScrollP: position => dispatch(actions.update_scroll_position(position))
+        onShowAllMovies: show => dispatch(actions.show_all_movies(show))
     }
 }
 

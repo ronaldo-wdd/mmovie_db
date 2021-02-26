@@ -34,8 +34,8 @@ class MoviesList extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.onScroll);
-        const position = - (this.containerRef.current.getBoundingClientRect().top - 100); 
-        this.props.onUpdateScrollP(position);
+        // const position = - (this.containerRef.current.getBoundingClientRect().top - 100); 
+        // this.props.onUpdateScrollP(position);
     }
 
     handleSelectedMovie (id, movieId) {
@@ -78,7 +78,11 @@ class MoviesList extends Component {
                 {this.props.limit &&
                     <Buttons type="showAll" 
                         className={classes.AllBtn} 
-                        click={() => this.props.history.push("/movies/popular")} />}
+                        click={() => {
+                            this.props.history.push("/movies/popular");
+                            window.scroll(0, 0);
+                        }}
+                    />}
             </Container>
         );
     }
@@ -97,7 +101,7 @@ const mapDispatchToProps = dispatch => {
         onSetActiveMovie: id => dispatch(actions.set_active_movie(id)),
         onShowMoreMovies: () => dispatch(actions.fetch_more_movies()),
         onShowAllMovies: show => dispatch(actions.show_all_movies(show)),
-        onUpdateScrollP: position => dispatch(actions.update_scroll_position(position))
+        // onUpdateScrollP: position => dispatch(actions.update_scroll_position(position))
     }
 }
 

@@ -42,3 +42,10 @@ export const show_modal = show => {
         show: show
     }
 }
+
+export const curr_page = page => {
+    return {
+        type: actionTypes.CURR_PAGE,
+        page: page
+    }
+}

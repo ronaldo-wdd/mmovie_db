@@ -24,5 +24,6 @@ export {
     show_movie_details,
     show_all_movies,
     update_scroll_position,
-    show_modal
+    show_modal,
+    curr_page
 } from './navigation';

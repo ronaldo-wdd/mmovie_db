@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 import classes from './Backdrop.module.css';
+import { inspect } from 'util';
 
 import defaultBackdropPath from '../../../assents/images/defaultBackdrop.jpg';
 import { backdropGsap } from '../../../shared/Timelines/gsapAnimations';
@@ -23,15 +24,26 @@ class Backdrop extends Component {
         loading: true,
         openModal: false,
         loadingTrailer: false,
-        gsapAnim: null
+        gsapAnim: null,
+        visible: true
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            const gsapAnim = backdropGsap(this.bdRef.current);
+            this.setState ({gsapAnim: gsapAnim});
+        }, 300);
     }
     
-    shouldComponentUpdate(nextProps, nextState) {
-        return (this.props !== nextProps || JSON.stringify(this.state) !== JSON.stringify(nextState)) 
+    shouldComponentUpdate(nextProps, nextState) {     
+        return (this.props !== nextProps || inspect(this.state) !== inspect(nextState)) 
             ? true : false;
     }
 
     componentDidUpdate () {
+        let visible = this.props.page === '' || this.props.page === 'movie';
+        this.setState({visible: visible});
+
         if (this.props.movies != null) {
             let mainMovies = [...this.props.movies].slice(
                 this.props.activeMovie,
@@ -43,9 +55,12 @@ class Backdrop extends Component {
 
             this.setState({mainMovies: mainMovies, loading: false});
         }
-
-        this.bdRef.current && backdropGsap(this.bdRef.current);
-            // this.setState({gsapAnim: gsapAnim});
+        
+        if (this.state.gsapAnim) {
+            !this.state.visible
+                ? this.state.gsapAnim.disable()
+                : this.state.gsapAnim.enable()
+        }
     }
 
     onPlayTrailer () {
@@ -71,10 +86,12 @@ class Backdrop extends Component {
                 {md: '4', class: classes.FakeBackdrop},
             ],
             movies = this.state.mainMovies,
-            carouselClasses = [classes.Carousel];
+            carouselClasses = [classes.Carousel],
+            afterClasses = [classes.After];
 
         this.state.loading && carouselClasses.push(classes.Loading);
         this.props.showModal && carouselClasses.push(classes.Blur);
+        !this.state.visible && afterClasses.push(classes.Hidden);
 
         if (!this.state.loading) { 
             for (let i=0; i<4; i++) {
@@ -102,14 +119,15 @@ class Backdrop extends Component {
                     <TransitionGroup component={null}>
                         {displayedMovies}
                     </TransitionGroup>
-                    <div id='after' className={classes.After} />
+                    <div id='after' className={afterClasses.join(' ')} />
                 </div>
 
                 <Col md="8" className={classes.PlayTrailer}>
+                    {this.state.visible &&
                     <PlayBtn className={classes.Svg}
                         error={this.props.videoError}
                         loading={this.state.loadingTrailer}
-                        click = { () => this.onPlayTrailer() } />
+                        click = { () => this.onPlayTrailer() } />}
                 </Col>
 
                 {this.props.showModal && 
@@ -127,7 +145,8 @@ const mapStateToProps = state => {
         movies: state.movies.movies,
         video: state.movies.video,
         videoError: state.movies.videoError,
-        showModal: state.navigation.showModal
+        showModal: state.navigation.showModal,
+        page: state.navigation.currPage
     }
 }
 

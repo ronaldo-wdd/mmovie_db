@@ -49,7 +49,9 @@
 }
 
 .After {
-    background-image: linear-gradient(#1d1d1b00 60%, #1d1d1b);
+    background-image: linear-gradient(#1d1d1b00 60%, #1d1d1b); }
+.After.Hidden {
+    background-image: linear-gradient(#1d1d1be3 10%, #1d1d1b) !important; 
 }
 
 .PlayTrailer {

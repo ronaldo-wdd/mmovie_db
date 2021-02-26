@@ -1,38 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Router } from 'react-router-dom';
-import history from './hoc/history';
-
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
+import { Router } from 'react-router-dom';
+import store from './store';
 import { Provider } from 'react-redux';
-import createSagaMiddleware from 'redux-saga';
-
-import moviesReducer from './store/reducers/movies';
-import navigationReducer from './store/reducers/navigation';
-import thunk from 'redux-thunk';
-import { watchMovies } from './store/saga';
-
-
-// const composeEnhancers = process.env.NODE_ENV === "development"
-//   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-//   : null || compose;
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose,
-  sagaMiddleware = createSagaMiddleware(),
-  rootReducer = combineReducers({
-    movies: moviesReducer,
-    navigation: navigationReducer
-  }),
-  store = createStore(
-    rootReducer,
-    composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
-);
-
-sagaMiddleware.run(watchMovies);
+import App from './App';
+import history from './hoc/history';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -40,7 +16,7 @@ ReactDOM.render(
       <Router history={history} >
         <App history={history} />
       </Router>
-      </Provider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

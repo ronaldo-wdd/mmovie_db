@@ -33,17 +33,19 @@ const touchMove = (e, posX1) => {
 
 
 // JSON stringify circular structure
-export const safeStringify = obj => { 
-    var cache = [];
-
-    JSON.stringify(obj, (key, value) => {
-		if (typeof value === 'object' && value !== null) {
-			if (cache.includes(value)) return;
-			cache.push(value);
-		}
-		return value;
-    });
-    cache = null;
+export const safeStringify = (obj) => {
+	let cache = [];
+	const retVal = JSON.stringify(
+		obj,
+		(key, value) =>
+		typeof value === "object" && value !== null
+			? cache.includes(value)
+				? undefined 
+				: cache.push(value) && value
+			: value,
+	);
+	cache = null;
+	return retVal;
 };
 
 

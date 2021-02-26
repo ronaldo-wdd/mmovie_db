@@ -11,7 +11,7 @@ const Nav = (props) => {
         isActive = filter => props.activeFilter === filter;
             
     !props.showMobileNav && navClasses.push(classes.Hidden);
-    pathname === '/search' && btnClasses.push(classes.Active);
+    pathname === 'search' && btnClasses.push(classes.Active);
     
     return ( 
         <nav className={navClasses.join(' ')} onClick={()=> props.clicked()}>

@@ -27,7 +27,7 @@ class Header extends Component {
                 <Container fluid='xxl' className={classes.Container}>
                     <Logo />
                     <Nav activeFilter={this.props.activeFilter}
-                        pathname = {this.props.history.location.pathname}
+                        pathname = {this.props.page}
                         showMobileNav={this.state.showMobileNav}
                         handleNavLinksClick = {filter => this.handleNavLinksClick(filter)}
                         clicked = {() => this.setState({showMobileNav: !this.state.showMobileNav})} />
@@ -40,7 +40,8 @@ class Header extends Component {
 
 const mapStateToProps = state => {
     return {
-        activeFilter: state.movies.activeFilter
+        activeFilter: state.movies.activeFilter,
+        page: state.navigation.currPage
     }
 }
 

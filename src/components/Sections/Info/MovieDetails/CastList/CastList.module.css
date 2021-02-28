@@ -24,6 +24,27 @@
     -webkit-line-clamp: 2;
 }
 
-/* @media(max-width: 768px) {
-    .CastList { overflow: scroll; }
-} */
+.ScrollBar { 
+    transform: translateY(-120px);
+    position: absolute;
+    left: 0;
+    width: calc(100vw - 80px); 
+    pointer-events: none;
+}
+.ScrollBar > div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 3px;
+    background-color: #FFCC66;
+    transition: all .3s;
+}
+
+
+@media(max-width: 768px) {
+    .ScrollBar { width: calc(100vw - 30px); }
+}
+
+@media(max-width: 576px) {
+    .ScrollBar { width: calc(100vw - 20px); }
+}

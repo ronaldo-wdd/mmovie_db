@@ -150,7 +150,8 @@ class Info extends Component {
                         <MovieDetails movie={movie}
                             onTouchStart = { start => this.setState({touchStart: start}) }
                             handleScroll = {this.onScroll}
-                            deltaX = {this.state.castDeltaX} />}
+                            deltaX = {this.state.castDeltaX}
+                            maxDeltaX = {this.state.maxCastDeltaX} />}
                     <Button className={classes.SeeMoreBtn}
                         click={() => this.toggleMoreDetails(!this.props.showMoreDetails, movie.id)}
                         >{!this.props.showMoreDetails ? 'See more' : 'Go Back'}

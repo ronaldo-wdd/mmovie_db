@@ -18,9 +18,10 @@ const CastList = props => {
                     onError={ e => e.target.src=defaultProfilePath } />
                 <p>{cast.name}</p>
             </div> )
-    });
+    }),
+        scrollP = - 80 / props.maxDeltaX * props.deltaX + 80;
 
-    return (
+    return (        
         <Aux>
             <h2>Top Cast</h2>
             <div className={classes.CastList} id="castList"
@@ -30,6 +31,11 @@ const CastList = props => {
                 style={{transform: `translateX(-${props.deltaX}px)`}} >
                 {castList}
             </div>
+            {props.maxDeltaX > 0 &&
+                <div className={classes.ScrollBar}>
+                    <div style={{
+                        width: `${scrollP}px`}} />
+                </div>}
         </Aux>
     );
 }

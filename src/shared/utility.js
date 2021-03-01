@@ -3,19 +3,17 @@ import scrollLock from "scroll-lock";
 // Scroll ---
 export const scrollX = (e, prevDelta, maxDelta, posX1) => {
 	if(maxDelta <= 0) return 0;
-	scrollLock.disablePageScroll();
 
 	let delta = e.deltaY || touchMove(e, posX1),
 		newDelta = prevDelta + delta;
-
+		
 	newDelta = Math.max(0, newDelta);
 	newDelta = Math.min(maxDelta, newDelta);
-
-	setTimeout(() => scrollLock.enablePageScroll(), 500);
+	
+	scrollYLock(delta, newDelta, maxDelta);
 
 	return newDelta;
 }
-
 
 // touchStart 
 export const touchStart = e => {
@@ -30,7 +28,6 @@ const touchMove = (e, posX1) => {
 		? - (e.touches[0].clientX - posX1) / 8
 		: - (e.clientX - posX1) / 8;
 }
-
 
 // JSON stringify circular structure
 export const safeStringify = (obj) => {
@@ -48,7 +45,6 @@ export const safeStringify = (obj) => {
 	return retVal;
 };
 
-
 // Max DeltaX
 export const maxDeltaX = (target, element = false) => {
 	if (!target) return 0;
@@ -60,4 +56,13 @@ export const maxDeltaX = (target, element = false) => {
 		maxDelta = targetWidth - elementWidth;
 
 	return maxDelta;
+}
+
+// Lock scroll
+function scrollYLock (delta, newDelta, maxDelta) {
+	delta > 0 && newDelta < maxDelta || delta < 0 && newDelta > 0
+		? scrollLock.disablePageScroll()
+		: scrollLock.enablePageScroll()
+
+	setTimeout(() => scrollLock.enablePageScroll(), 500);
 }

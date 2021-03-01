@@ -154,8 +154,7 @@ class TopNav extends Component {
                     <form className={classes.Search} 
                         onSubmit={this.props.handleFormSubmit}>
                         <label>
-                            <span className={classes.WidthMachine}
-                                 >
+                            <span className={classes.WidthMachine} >
                                 {this.props.params.query || ''} </span>
                             <input type="text" 
                                 ref={this.inputRef}

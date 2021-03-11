@@ -48,22 +48,16 @@ class Info extends Component {
     
     componentDidUpdate () {
         if (!this.props.scrollTrigger) return;
-        this.props.scrollTrigger.opacity.refresh();
-        this.props.scrollTrigger.y.refresh();
-        this.props.scrollTrigger.opacity.disable();
-        this.props.scrollTrigger.y.disable();
-        
-        this.props.showAll
-            ? this.props.scrollTrigger.opacity.enable()
-            : this.props.scrollTrigger.opacity.disable();
-        
-        this.props.showAll || !this.props.isMobile
-            ? this.props.scrollTrigger.y.enable()
-            : this.props.scrollTrigger.y.disable();
-           
-        this.props.showMoreDetails || this.props.showAll
-            ? this.props.scrollTrigger.pin.disable()
-            : this.props.scrollTrigger.pin.enable();
+
+        if (this.props.showMoreDetails) {
+            this.props.scrollTrigger.y.disable();
+            this.props.scrollTrigger.pin.disable();
+            this.props.scrollTrigger.btns.disable();
+        } else {
+            this.props.scrollTrigger.y.enable();
+            this.props.scrollTrigger.pin.enable();
+            this.props.scrollTrigger.btns.enable();
+        }
     }
 
     toggleMoreDetails (show, id) {
@@ -152,13 +146,13 @@ class Info extends Component {
                             handleScroll = {this.onScroll}
                             deltaX = {this.state.castDeltaX}
                             maxDeltaX = {this.state.maxCastDeltaX} />}
-                    <Button className={classes.SeeMoreBtn}
+                    <Button className={[classes.SeeMoreBtn, '_btn'].join(' ')}
                         click={() => this.toggleMoreDetails(!this.props.showMoreDetails, movie.id)}
                         >{!this.props.showMoreDetails ? 'See more' : 'Go Back'}
                     </Button>
                 </Col>
 
-                <div className={classes.NextBtn}>
+                <div className={[classes.NextBtn, '_btn'].join(' ')}>
                     {!this.props.showMoreDetails &&
                         <Button type="next"
                         click={ ()=> this.props.onSetActiveMovie(this.props.activeMovie + 1)}/>}

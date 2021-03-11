@@ -89,6 +89,7 @@
 .Search label {
     position: relative;
     margin: 0;
+    white-space: nowrap;
 }
 
 .Search .WidthMachine {

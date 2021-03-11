@@ -7,6 +7,10 @@ import Info from '../../Sections/Info/Info';
 
 
 class Movie extends Component {
+    componentDidMount () {
+        setTimeout(()=> window.scroll(0, 0), 100);
+    }
+    
     componentWillUnmount () {
         this.props.onShowMoreDetails(false);
     }

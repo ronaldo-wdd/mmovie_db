@@ -42,12 +42,7 @@ class App extends Component {
 }
 
 
-const mapStateToProps = state => {
-  return {
-    isMobile: state.navigation.mobile,
-    loaded: state.navigation.loaded
-  }
-}
+const mapStateToProps = state => ({ isMobile: state.navigation.mobile });
 
 const mapDispatchToProps = dispatch => {
   return {

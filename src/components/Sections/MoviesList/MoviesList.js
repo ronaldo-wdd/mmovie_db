@@ -3,7 +3,6 @@ import classes from './MoviesList.module.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { connect } from "react-redux";
-import { animateScroll } from 'react-scroll';
 
 import * as actions from '../../../store/actions';
 import Movie from './Movie/Movie';
@@ -14,11 +13,8 @@ class MoviesList extends Component {
     constructor (props) {
         super(props);
         this.rowRef = React.createRef();
-        this.containerRef = React.createRef();
         this.onScroll = this.fetchMoreMovies.bind(this);
     }
-
-    state = { gsapAnim: null }
 
     componentDidMount () {
         window.addEventListener('scroll', this.onScroll);
@@ -34,15 +30,13 @@ class MoviesList extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.onScroll);
-        // const position = - (this.containerRef.current.getBoundingClientRect().top - 100); 
-        // this.props.onUpdateScrollP(position);
     }
 
     handleSelectedMovie (id, movieId) {
         this.props.onSetActiveMovie(id);
 
         this.props.limit
-            ? animateScroll.scrollToTop({ smooth: true })
+            ? window.scroll(0, 0)
             : this.props.history.push("/movie/" + movieId);
     }
     
@@ -68,7 +62,6 @@ class MoviesList extends Component {
         return (
             <Container fluid="xxl" 
                 id="moviesList"
-                ref={this.containerRef}
                 className={moviesListClasses.join(' ')} >
                 <Row className={classes.MoviesRow} id="moviesRow" ref={this.rowRef}
                     style={{...rowStyle}} >
@@ -101,7 +94,6 @@ const mapDispatchToProps = dispatch => {
         onSetActiveMovie: id => dispatch(actions.set_active_movie(id)),
         onShowMoreMovies: () => dispatch(actions.fetch_more_movies()),
         onShowAllMovies: show => dispatch(actions.show_all_movies(show)),
-        // onUpdateScrollP: position => dispatch(actions.update_scroll_position(position))
     }
 }
 

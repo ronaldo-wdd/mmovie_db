@@ -1,8 +1,8 @@
-import { curr_page } from '../actions';
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     loaded: false,
+    loading: true,
     mobile: false,
     showMovieDetails: false,
     showAllMovies: false,
@@ -23,6 +23,13 @@ const is_loaded = (state, loaded) => {
     return {
         ...state,
         loaded: loaded
+    }
+}
+
+const loading = (state, ld) => {
+    return {
+        ...state,
+        loading: ld
     }
 }
 
@@ -71,6 +78,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_SCROLL_POSITION: return updateScrollPosition(state, action.position);
         case actionTypes.SHOW_MODAL: return showModal(state, action.show);
         case actionTypes.CURR_PAGE: return currPage(state, action.page);
+        case actionTypes.LOADING: return loading(state, action.loading);
         default: return state;
     }
 }

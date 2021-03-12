@@ -27,3 +27,4 @@ export const SHOW_ALL_MOVIES = 'SHOW_ALL_MOVIES';
 export const UPDATE_SCROLL_POSITION = 'UPDATE_SCROLL_POSITION';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const CURR_PAGE = 'CURR_PAGE';
+export const LOADING = 'LOADING';

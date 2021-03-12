@@ -15,6 +15,13 @@ export const loaded = ld => {
     }
 }
 
+export const loading = ld => {
+    return {
+        type: actionTypes.LOADING,
+        loading: ld
+    }
+}
+
 export const show_movie_details = show => {
     return {
         type: actionTypes.SHOW_MOVIE_DETAILS,

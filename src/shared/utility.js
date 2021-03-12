@@ -10,7 +10,7 @@ export const scrollX = (e, prevDelta, maxDelta, posX1) => {
 	newDelta = Math.max(0, newDelta);
 	newDelta = Math.min(maxDelta, newDelta);
 	
-	scrollYLock(delta, newDelta, maxDelta);
+	scrollYLock(newDelta, maxDelta);
 
 	return newDelta;
 }
@@ -59,10 +59,10 @@ export const maxDeltaX = (target, element = false) => {
 }
 
 // Lock scroll
-function scrollYLock (delta, newDelta, maxDelta) {
-	delta > 0 && newDelta < maxDelta || delta < 0 && newDelta > 0
-		? scrollLock.disablePageScroll()
-		: scrollLock.enablePageScroll()
+function scrollYLock (newDelta, maxDelta) {
+	newDelta === 0 || newDelta === maxDelta
+		? scrollLock.enablePageScroll()
+		: scrollLock.disablePageScroll();
 
 	setTimeout(() => scrollLock.enablePageScroll(), 500);
 }

@@ -95,12 +95,12 @@ class Info extends Component {
 
     handleScroll (e, cast = false) {
         if(cast) {
-            const deltaX = scrollX(e, this.state.castDeltaX, this.state.maxCastDeltaX, this.state.touchStart);
+            const deltaX = scrollX(e, this.state.touchStart, this.state.castDeltaX, this.state.maxCastDeltaX);
             this.setState({castDeltaX: deltaX});
         } else {
-            const deltaX = scrollX(e, this.state.genreDeltaX, this.state.maxGenreDeltaX, this.state.touchStart);
+            const deltaX = scrollX(e, this.state.touchStart, this.state.genreDeltaX, this.state.maxGenreDeltaX);
             this.setState({genreDeltaX: deltaX});
-        } 
+        }
     }
     
     render () {

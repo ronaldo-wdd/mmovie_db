@@ -43,11 +43,13 @@ class TopNav extends Component {
     }
 
     handleFiltersListScroll = e => {
-        const deltaX = scrollX(e, this.state.deltaX, this.state.maxDeltaX, this.state.touchstart);
+        const deltaX = scrollX(e, this.state.touchstart, this.state.deltaX, this.state.maxDeltaX);
         this.setState({deltaX: deltaX});
     }
     
     handleElClick (value) {
+        this.handleFiltersList();
+        
         this.state.filter === 0
             ? this.props.params.genre === value
                 ? this.onSetParams({genre: undefined})

@@ -1,18 +1,27 @@
 import scrollLock from "scroll-lock";
 
 // Scroll ---
-export const scrollX = (e, prevDelta, maxDelta, posX1) => {
-	if(maxDelta <= 0) return 0;
+export const scrollX = (e, posX1 = 0, prevDelta = false, maxDelta = false) => {
+	if((maxDelta && maxDelta <= 0) || onScrollY(e)) return 0;
 
-	let delta = e.deltaY || touchMove(e, posX1),
-		newDelta = prevDelta + delta;
+	let delta = e.deltaX || touchMove(e, posX1),
+		newDelta = prevDelta ? prevDelta + delta : delta;
 		
-	newDelta = Math.max(0, newDelta);
-	newDelta = Math.min(maxDelta, newDelta);
-	
-	scrollYLock(newDelta, maxDelta);
+	if (maxDelta) {
+		newDelta = Math.max(0, newDelta);
+		newDelta = Math.min(maxDelta, newDelta);
+	}
 
 	return newDelta;
+}
+
+const onScrollY = e => {
+	if (!e.deltaY || e.deltaY === 0) return false;
+
+	const scrollingY = e.deltaY > 0 > e.deltaX || e.deltaY < 0 < e.deltaX
+		? true : false;
+
+	return scrollingY;
 }
 
 // touchStart 
@@ -59,7 +68,7 @@ export const maxDeltaX = (target, element = false) => {
 }
 
 // Lock scroll
-function scrollYLock (newDelta, maxDelta) {
+export function scrollYLock (newDelta, maxDelta) {
 	newDelta === 0 || newDelta === maxDelta
 		? scrollLock.enablePageScroll()
 		: scrollLock.disablePageScroll();

@@ -1,12 +1,12 @@
 .Col {
     padding-bottom: 30px;
-    cursor: pointer;
 }
 
 .Movie {
     position: relative;
     padding-top: 150%;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .Movie img {

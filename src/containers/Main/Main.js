@@ -22,7 +22,7 @@ class Main extends Component {
 
     componentDidMount(){
         setTimeout(()=> window.scroll(0, 0), 100);
-        this.props.onLoad(true)
+        this.props.onLoading(true)
     }
     
     shouldComponentUpdate(nextProps, nextState) {     
@@ -33,7 +33,8 @@ class Main extends Component {
     componentDidUpdate() {
         this.state.movies.length === 0
             ? this.setState({movies: this.props.movies.slice(0, 10)})
-            : this.props.onLoad(false);
+            : window.loadPromise.then(
+                setTimeout(()=> this.props.onLoading(false), 300));
         
         setTimeout(() => {
             !this.props.loading && !this.state.gsapAnim
@@ -42,8 +43,6 @@ class Main extends Component {
     }
 
     render() {
-        if (this.props.loading) return <div />
-        
         return (
             <div className={classes.Main} ref={this.mainRef}>
                 <Info
@@ -73,7 +72,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onShowAllMovies: show => dispatch(actions.show_all_movies(show)),
-        onLoad: ld => dispatch(actions.loading(ld))
+        onLoading: ld => dispatch(actions.loading(ld))
     }
 }
 

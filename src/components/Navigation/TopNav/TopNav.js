@@ -28,10 +28,8 @@ class TopNav extends Component {
     }
 
     componentDidMount() {
-        if (this.props.search && this.inputRef) {
-            this.inputRef.current.focus();
-            this.inputRef.current.select();
-        }
+        (this.props.search && this.inputRef && !this.props.params.query)
+            && this.inputRef.current.focus();
     }
     
     handleFiltersList() {

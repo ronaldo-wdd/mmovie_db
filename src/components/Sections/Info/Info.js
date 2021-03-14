@@ -30,7 +30,6 @@ class Info extends Component {
 
     componentDidMount () {
         const pathname = this.props.history.location.pathname.split('/')[1];
-        this.setMaxDeltaX();
         pathname === 'movie' && this.setMaxDeltaX(true);
         
         this.props.id_param 
@@ -47,6 +46,10 @@ class Info extends Component {
     }
     
     componentDidUpdate () {
+        this.setMaxDeltaX();
+        this.props.castLoaded 
+            && setTimeout(()=> this.props.onLoaded(), 300);
+
         if (!this.props.scrollTrigger) return;
 
         if (this.props.showMoreDetails) {
@@ -66,7 +69,7 @@ class Info extends Component {
         if (show) {
             this.props.onGetMovieCast(id);
             this.setOffsetTop();
-            setTimeout(() => { this.setMaxDeltaX(true); }, 300); 
+            setTimeout(() => { this.setMaxDeltaX(true); }, 300);
         } else this.props.id_param && this.props.history.goBack();
     }
 
@@ -181,7 +184,8 @@ const mapDispatchToProps = dispatch => {
         onSetActiveMovie: index => dispatch(actions.active_movie(index)),
         onGetMovieCast: id => dispatch(actions.fetch_movies_cast(id)),
         onShowMoreDetails: show => dispatch(actions.show_movie_details(show)),
-        onShowModal: show => dispatch(actions.show_modal(show))
+        onShowModal: show => dispatch(actions.show_modal(show)),
+        onLoaded: () => dispatch(actions.loading(false))
     }
 }
 

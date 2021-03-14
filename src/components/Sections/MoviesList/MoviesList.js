@@ -3,6 +3,7 @@ import classes from './MoviesList.module.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { connect } from "react-redux";
+import { scrollX, touchStart } from '../../../shared/utility';
 
 import * as actions from '../../../store/actions';
 import Movie from './Movie/Movie';
@@ -15,6 +16,8 @@ class MoviesList extends Component {
         this.rowRef = React.createRef();
         this.onScroll = this.fetchMoreMovies.bind(this);
     }
+
+    state = { touchStart: 0 }
 
     componentDidMount () {
         window.addEventListener('scroll', this.onScroll);
@@ -40,6 +43,13 @@ class MoviesList extends Component {
             : this.props.history.push("/movie/" + movieId);
     }
     
+    handleScrollX(e) {
+        if (this.props.page !== '') return;
+
+        const deltaX = scrollX(e, this.state.touchStart);        
+        window.scroll(0, window.scrollY + deltaX);
+    }
+    
     fetchMoreMovies() {
         const limit = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
             document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight ) - window.innerHeight;
@@ -63,8 +73,13 @@ class MoviesList extends Component {
             <Container fluid="xxl" 
                 id="moviesList"
                 className={moviesListClasses.join(' ')} >
-                <Row className={classes.MoviesRow} id="moviesRow" ref={this.rowRef}
-                    style={{...rowStyle}} >
+                <Row ref={this.rowRef}
+                    id="moviesRow"
+                    className={classes.MoviesRow}
+                    style={{...rowStyle}}
+                    onWheel = {event => this.handleScrollX(event)}
+                    onTouchStart = { event => this.setState({touchStart: touchStart(event)}) }
+                    onTouchMove = { event => this.handleScrollX(event) } >
                     {movies}
                 </Row>
 
@@ -85,7 +100,8 @@ class MoviesList extends Component {
 const mapStateToProps = state => {
     return {
         activeMovie: state.movies.activeMovie,
-        showMoreDetails: state.navigation.showMovieDetails
+        showMoreDetails: state.navigation.showMovieDetails,
+        page: state.navigation.currPage
     }
 }
 
@@ -93,7 +109,6 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetActiveMovie: id => dispatch(actions.set_active_movie(id)),
         onShowMoreMovies: () => dispatch(actions.fetch_more_movies()),
-        onShowAllMovies: show => dispatch(actions.show_all_movies(show)),
     }
 }
 

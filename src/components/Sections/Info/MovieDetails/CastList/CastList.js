@@ -19,7 +19,7 @@ const CastList = props => {
                 <p>{cast.name}</p>
             </div> )
     }),
-        scrollP = - 80 / props.maxDeltaX * props.deltaX + 80;
+        scrollP = - 70 / props.maxDeltaX * props.deltaX + 70;
 
     return (        
         <Aux>

@@ -8,6 +8,7 @@ import Info from '../../Sections/Info/Info';
 
 class Movie extends Component {
     componentDidMount () {
+        this.props.onLoading(true);
         setTimeout(()=> window.scroll(0, 0), 100);
     }
     
@@ -28,7 +29,10 @@ class Movie extends Component {
 
 
 const mapDispatchToProps = dispatch => {
-    return { onShowMoreDetails: show => dispatch(actions.show_movie_details(show)) }
+    return { 
+        onShowMoreDetails: show => dispatch(actions.show_movie_details(show)),
+        onLoading: ld => dispatch(actions.loading(ld))
+    }
 }
 
 export default connect(null, mapDispatchToProps)(Movie);

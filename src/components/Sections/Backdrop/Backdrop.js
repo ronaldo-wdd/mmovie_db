@@ -21,7 +21,6 @@ class Backdrop extends Component {
     
     state = {
         mainMovies: [],
-        loading: true,
         openModal: false,
         loadingTrailer: false,
         gsapAnim: null,
@@ -53,7 +52,7 @@ class Backdrop extends Component {
                 this.props.activeMovie - 1
             )[0]);
 
-            this.setState({mainMovies: mainMovies, loading: false});
+            this.setState({mainMovies: mainMovies});
         }
         
         if (this.state.gsapAnim) {
@@ -87,34 +86,33 @@ class Backdrop extends Component {
             ],
             movies = this.state.mainMovies,
             carouselClasses = [classes.Carousel],
+            backdropsClasses = [classes.Backdrops],
             afterClasses = [classes.After];
 
-        this.state.loading && carouselClasses.push(classes.Loading);
+        this.props.loading && backdropsClasses.push(classes.Loading);
         this.props.showModal && carouselClasses.push(classes.Blur);
         !this.state.visible && afterClasses.push(classes.Hidden);
 
-        if (!this.state.loading) { 
-            for (let i=0; i<4; i++) {
-                displayedMovies.push(
-                    <CSSTransition
-                        key={movies[i] ? movies[i].id : i}
-                        timeout={700}
-                        classNames="slide" >
-                        <Col md={backdropsConfig[i].md}
-                            className={backdropsConfig[i].class} >
-                            {movies[i] && (
-                                <img alt={movies[i].title}
-                                src={`https://image.tmdb.org/t/p/w1280${movies[i].backdrop_path}`}
-                                onError={ e => e.target.src=defaultBackdropPath } />
-                            )}
-                        </Col>
-                    </CSSTransition>
-                );
-            }
+        for (let i=0; i<4; i++) {
+            displayedMovies.push(
+                <CSSTransition
+                    key={movies[i] ? movies[i].id : i}
+                    timeout={700}
+                    classNames="slide" >
+                    <Col md={backdropsConfig[i].md}
+                        className={backdropsConfig[i].class} >
+                        {movies[i] && (
+                            <img alt={movies[i].title}
+                            src={`https://image.tmdb.org/t/p/w1280${movies[i].backdrop_path}`}
+                            onError={ e => e.target.src=defaultBackdropPath } />
+                        )}
+                    </Col>
+                </CSSTransition>
+            );
         }
 
         return (
-            <div ref={this.bdRef}>
+            <div ref={this.bdRef} className={backdropsClasses.join(' ')} >
                 <div id='Carousel' className={carouselClasses.join(' ')} >
                     <TransitionGroup component={null}>
                         {displayedMovies}
@@ -146,7 +144,8 @@ const mapStateToProps = state => {
         video: state.movies.video,
         videoError: state.movies.videoError,
         showModal: state.navigation.showModal,
-        page: state.navigation.currPage
+        page: state.navigation.currPage,
+        loading: state.navigation.loading
     }
 }
 

@@ -8,6 +8,8 @@ import Search from '../../components/Pages/Search/Search';
 import Movies from '../../components/Pages/Movies/Movies';
 import Movie from '../../components/Pages/Movie/Movie';
 
+import { fadeOut, play } from '../../shared/Timelines/pageTransition';
+
 
 const AnimatedRoutes = props => {
     const pathname = props.location.pathname.split('/')[1] || 'home', 
@@ -18,9 +20,9 @@ const AnimatedRoutes = props => {
             <Transition
                 key = {key}
                 appear = {true}
-                onEnter = { ()=> console.log(pathname + ' has entered!!!')}
-                onExit = { ()=> console.log(pathname + ' has leaved!!!')}
-                timeout = {{enter: 350, exit: 350}} >
+                onEnter = { node => play(node, pathname) }
+                onExit = { node => fadeOut(node) }
+                timeout = { {enter: 350, exit: 350} } >
                 <Switch location={props.location}>
                     <Route path="/search" component={Search} />
                     <Route path="/movie/:id" component={Movie} />

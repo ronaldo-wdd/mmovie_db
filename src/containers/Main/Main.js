@@ -6,6 +6,7 @@ import { inspect } from 'util';
 
 import MoviesList from '../../components/Sections/MoviesList/MoviesList';
 import Info from '../../components/Sections/Info/Info';
+import Footer from '../../components/Navigation/Footer/Footer';
 import { gsapAnim } from '../../shared/Timelines/gsapAnimations';
 
 
@@ -55,6 +56,8 @@ class Main extends Component {
                     history={this.props.history}
                     scrollTrigger={this.state.gsapAnim 
                         && this.state.gsapAnim.moviesListST} />
+                        
+                <Footer />
             </div>
         );
     }

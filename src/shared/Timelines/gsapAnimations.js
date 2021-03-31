@@ -23,7 +23,7 @@ export const backdropGsap = element => {
 
     return tl.scrollTrigger;
 }
-
+ 
 
 export const gsapAnim = selector => {
     let infoEl = selector.querySelector('#info'),
@@ -33,6 +33,7 @@ export const gsapAnim = selector => {
         moviesListTw = gsap.to(moviesRow, { paused: true }),
         infoTw = gsap.to(infoEl, { paused: true }),
         infoBtnTw = gsap.to(infoBtns, { paused: true }),
+        footer = selector.querySelector('#footer'),
         xMax = moviesRow.scrollWidth - moviesRow.clientWidth * 1.05 - 20,
         mobile = store.getState().navigation.mobile,
 
@@ -81,6 +82,8 @@ export const gsapAnim = selector => {
                 self.update() }
         });
     
+    footerAnim(footer, moviesListEl);
+    
     infoTransST.disable();
     
     return { 
@@ -91,4 +94,36 @@ export const gsapAnim = selector => {
             btns: infoBtnsST
         }
     }
+}
+
+const footerAnim = (footer, trigger) => {
+    const el = footer.querySelectorAll('a'),
+        img = footer.querySelectorAll('img'),
+        p = footer.querySelectorAll('p'),
+        h3 = footer.querySelectorAll('h3');
+
+    gsap.timeline({
+        paused: true,
+        scrollTrigger: {
+            trigger: trigger,
+            scrub: true,
+            start: ()=> 'bottom-=20 bottom',
+            end: ()=> '+=50',
+            onEnter: ()=> anim.restart()
+        }})
+        .from(footer, { opacity: 0, yPercent: 100 });
+
+    const anim = gsap.timeline({repeat: -1})
+        .from(h3, .5, {opacity: 0, x: -5, stagger: 5})
+        .from(img, .5, {opacity: 0, zIndex: 1, stagger: 5}, '0')
+        .from(p, .5, {opacity: 0, y: 5, zIndex: 1, stagger: 5}, '0')
+        .add('end', '-=12')
+        .to(h3, .5, {opacity: 0, x: 5, stagger: 5, delay: 6}, 'end')
+        .to(img, .5, {opacity: 0, zIndex: 1, stagger: 5, delay: 6}, 'end')
+        .to(p, .5, {opacity: 0, y: -5, zIndex: 1, stagger: 5, delay: 6}, 'end');
+
+    el.forEach(element => {
+        element.addEventListener('mouseover', ()=> anim.pause(), false);
+        element.addEventListener('mouseout', ()=> anim.resume(), false);
+    });
 }

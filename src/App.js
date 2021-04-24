@@ -20,7 +20,7 @@ class App extends Component {
   componentDidMount () {
     this.changeMobile();
     window.addEventListener('resize', this.changeMobile);
-    this.props.onFetchMoviesGenre();
+    // this.props.onFetchMoviesGenre();
     this.props.onFetchMovies();
   }
 
@@ -47,8 +47,8 @@ const mapStateToProps = state => ({ isMobile: state.navigation.mobile });
 const mapDispatchToProps = dispatch => {
   return {
     onChangeMobile: mobile => dispatch(actions.change_mobile(mobile)),
-    onFetchMovies: () => dispatch(actions.fetch_movies()),
-    onFetchMoviesGenre: () => dispatch(actions.fetch_movies_genre())
+    // onFetchMovies: () => dispatch(actions.fetch_movies()),
+    onFetchMovies: () => dispatch(actions.fetch_movies_genre())
   }
 }
 

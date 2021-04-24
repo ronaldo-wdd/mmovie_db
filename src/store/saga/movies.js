@@ -76,6 +76,7 @@ export function* fetchMoviesGenreSaga() {
         });
         
         yield put(actions.fetch_movies_genre_success(genresList));        
+        yield put(actions.fetch_movies());        
     } catch (error) {
         console.log("fetching genre fails", error);
     }

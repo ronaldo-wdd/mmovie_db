@@ -106,7 +106,7 @@ export function* fetchMovieTrailer(action) {
             if (video.results.length > 0) {
                 yield put(actions.fetch_movie_trailer_success(video));
                 yield put(actions.show_modal(true));
-            } else throw 'Trailer not found :)';
+            } else throw new Error ('Trailer not found :)');
     } catch (error) {
         yield put(actions.fetch_movie_trailer_failed());
     }

@@ -34,8 +34,8 @@ export const touchStart = e => {
 // touchMove
 const touchMove = (e, posX1) => {
   	return e.type === 'touchmove'
-		? posX1 - e.touches[0].clientX / 8
-		: posX1 - e.clientX / 8;
+		? - (e.touches[0].clientX - posX1) / 8
+		: - (e.clientX - posX1) / 8;
 }
 
 // JSON stringify circular structure

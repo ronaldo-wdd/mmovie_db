@@ -28,3 +28,12 @@ export {
     curr_page,
     loading
 } from './navigation';
+
+export {
+    request_token,
+    username,
+    auth,
+    authStart,
+    authSuccess,
+    authFail
+} from './auth';

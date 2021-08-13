@@ -16,7 +16,7 @@
     flex-direction: column;
     justify-content: center;
     pointer-events: none;
-    height: 160px;
+    height: 200px;
     transition: all .3s;
 }
 
@@ -35,8 +35,9 @@
     width: 22px;
     height: 2px;
     background-color: #FFCC66;
+    display: none;
 }
-.Btn > div:last-child::after { display: none; }
+.Btn > div:nth-child(-n+3)::after { display: block; }
 
 .Btn img {
     height: 22px;
@@ -48,13 +49,13 @@
 .Nav.Hidden > div { pointer-events: none; }
 .Nav.Hidden .Btn { height: 40px; }
 .Nav.Hidden .Btn > div { height: 5px; }
-.Nav.Hidden .Btn > div:last-child { height: 0; }
+.Nav.Hidden .Btn > div:nth-last-child(-n+2) { height: 0; }
 .Nav.Hidden .Btn img { 
     transform: translateY(calc(100% + 28px));
     pointer-events: none;
     opacity: 0; 
 }
-.Nav.Hidden .Btn.Active img { opacity: 1; }
+.Nav.Hidden .Btn img.Active { opacity: 1; }
 
 .Close {
     position: fixed;

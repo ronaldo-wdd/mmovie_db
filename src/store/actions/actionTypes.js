@@ -28,3 +28,10 @@ export const UPDATE_SCROLL_POSITION = 'UPDATE_SCROLL_POSITION';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const CURR_PAGE = 'CURR_PAGE';
 export const LOADING = 'LOADING';
+
+// authentication reducer
+export const REQUEST_TOKEN = 'REQUEST_TOKEN';
+export const USERNAME = 'USERNAME';
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAILED = 'AUTH_FAILED';

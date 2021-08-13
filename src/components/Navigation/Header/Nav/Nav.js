@@ -3,15 +3,18 @@ import classes from './Nav.module.css';
 
 import Item from './Item/Item';
 import srcIcon from '../../../../assents/images/icons/search.png';
+import profileIcon from '../../../../assents/images/icons/profile.png';
 
 const Nav = (props) => {
     const navClasses = [classes.Nav],
-        btnClasses = [classes.Btn],
+        srcClasses = [classes.Search],
+        profileClasses = [classes.Profile],
         pathname = props.pathname,
         isActive = filter => props.activeFilter === filter;
             
     !props.showMobileNav && navClasses.push(classes.Hidden);
-    pathname === 'search' && btnClasses.push(classes.Active);
+    pathname === 'search' && srcClasses.push(classes.Active);
+    pathname === 'profile' && profileClasses.push(classes.Active);
     
     return ( 
         <nav className={navClasses.join(' ')} onClick={()=> props.clicked()}>
@@ -36,10 +39,15 @@ const Nav = (props) => {
                     showMobileNav={props.showMobileNav}
                     search={true}>
                     Search</Item>
+                <Item link="/login"
+                    showMobileNav={props.showMobileNav}
+                    search={true} >
+                    Login</Item>
             </div>
-            <div className={btnClasses.join(' ')}>
+            <div className={classes.Btn}>
                 <div/><div/><div/>
-                <div><img src={srcIcon} alt=""/></div>
+                <div><img className={srcClasses.join(' ')} src={srcIcon} alt=""/></div>
+                <div><img className={profileClasses.join(' ')} src={profileIcon} alt=""/></div>
             </div>
         </nav>
     );

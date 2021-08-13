@@ -1,0 +1,72 @@
+.Auth {
+    position: relative;
+    width: calc(100vw - 40px);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.Card {
+    background-color: #1D1D1B;
+    color: white;
+    padding: 40px;
+}
+
+.Auth form {
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    margin: auto;
+}
+
+.Auth form .Title {
+    display: flex;
+    justify-content: center;
+}
+
+.Title {
+    font-size: 1.1rem;
+    color: #FFCC66;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+.Title p { margin: 0; }
+.Title a { margin-left: 20px; color: #fff }
+.Title a:hover, .Title a:active { color: #FFCC66 }
+
+.Auth input[type="text"], .Auth input[type="password"] {
+    background-color: #1D1D1B;
+    color: #fff;
+    border: 1px solid #707070;
+    padding: 4px 15px;
+    margin-bottom: 40px;
+}
+.Auth input[type="text"]:focus, 
+.Auth input[type="password"]:focus {
+    outline: none;
+    border-color: #fff;
+}
+
+.Auth input[type="submit"] {
+    width: 100%;
+    margin: 0 0 0 auto;
+    padding: 7px 35px;
+    background-color: #FFCC66;
+    color: #1D1D1B;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.Auth input[type="submit"]:hover, 
+.Auth input[type="submit"]:active { 
+    color: #fff; 
+}
+
+@media(max-width: 768px) {
+    .Card { padding: 40px 20px }
+}

@@ -3,6 +3,7 @@ import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 
 import moviesReducer from './reducers/movies';
 import navigationReducer from './reducers/navigation';
+import authenticationReducer from './reducers/auth';
 import thunk from 'redux-thunk';
 import { watchMovies } from './saga';
 
@@ -10,7 +11,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose,
     sagaMiddleware = createSagaMiddleware(),
     rootReducer = combineReducers({
         movies: moviesReducer,
-        navigation: navigationReducer }
+        navigation: navigationReducer,
+        auth: authenticationReducer }
     ),
     store = createStore(
         rootReducer,

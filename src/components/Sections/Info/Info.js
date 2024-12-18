@@ -106,21 +106,21 @@ class Info extends Component {
     render () {
         if (!this.props.loaded) return <Container className={classes.Info} />
         
-        const movie = this.props.movies[this.props.activeMovie],
-            vote = movie.vote_average,
-            stars = [2,4,6,8,10].map((value, index) => {
+        const movie = this.props.movies[this.props.activeMovie]
+            , vote = Math.round(movie.vote_average * 10) + '%'
+            , stars = [2,4,6,8,10].map((value, index) => {
                 return <img key={index} src={starIcon} alt="" 
-                    style={{opacity: vote - value >= -1 ? 1 : '.3'}} />;
-            }),
-            movieGenres = movie.genre_ids.map((id, index) => {
+                    style={{ opacity: movie.vote_average - value >= -1 ? 1 : '.3' }} />;
+            })
+            , movieGenres = movie.genre_ids.map((id, index) => {
                 return <li key={index}>{this.props.genresList[id]}</li>
-            }),
-            mainStyle = (this.props.showMoreDetails && !this.props.isMobile)
+            })
+            , mainStyle = (this.props.showMoreDetails && !this.props.isMobile)
                 && {display: "block", marginTop: this.state.mainOffsetTop};
 
-            let infoClasses = [classes.Info];
-            this.props.isMobile && infoClasses.push(classes.Mobile);
-            this.props.showMoreDetails && infoClasses.push(classes.MoreDetails);
+        let infoClasses = [classes.Info];
+        this.props.isMobile && infoClasses.push(classes.Mobile);
+        this.props.showMoreDetails && infoClasses.push(classes.MoreDetails);
 
         return (
             <Container id="info"
@@ -141,7 +141,7 @@ class Info extends Component {
                         {movieGenres}</ul>
                     <div className={classes.Stars}>
                         {stars}
-                        <p>{vote*10}%</p>
+                        <p>{ vote }</p>
                     </div>
                     {this.props.showMoreDetails && 
                         <MovieDetails movie={movie}

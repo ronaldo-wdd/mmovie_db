@@ -27,7 +27,7 @@ export const authSuccess = authData => {
         type: actions.AUTH_SUCCESS,
         authData: authData
     }
-} 
+}
 
 export const authFail = error => {
     return {
@@ -36,18 +36,18 @@ export const authFail = error => {
     }
 }
 
-export const auth = (user, password) => {
+export const auth = (username, password) => {
     return dispatch => {
         dispatch(authStart());
+
+        const options = {
+            username,
+            password,
+            request_token: store.getState().auth.request_token
+        }
         
-        axios.post('/authentication/token/validate_with_login', {
-            params: {
-                username: user,
-                password: password,
-                request_token: store.getState().auth.request_token
-            }
-        }).then(
-            dispatch(response => authSuccess(response))
-        ).catch(error => dispatch(authFail(error)))
+        axios.post('/authentication/token/validate_with_login', options)
+            .then(response => dispatch(authSuccess(response.data)))
+            .catch(error => dispatch(authFail(error.message)))
     }
 }
